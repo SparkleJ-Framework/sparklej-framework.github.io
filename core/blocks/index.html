@@ -631,19 +631,19 @@ sprite.changeStretchY(5);</pre>
         </tr>
 
         <tr>
-            <td><img src="change_ghost.svg" loading="lazy" alt="Change Ghost Effect by 25" width="120"></td><td><code>sprite.getGraphicEffects().increment(GraphicEffect.GHOST, 25);</code></td>
-            <td class="note">Increases the “ghost” (transparency) effect by 25 units. Higher values make the sprite more transparent.</td>
+            <td><img src="change_ghost.svg" loading="lazy" alt="Change Ghost Effect by 25" width="120"></td><td><code>sprite.getGraphicEffects().increment(GraphicEffect.FADE, 25);</code></td>
+            <td class="note">Increases the “fade” (transparency) effect by 25 units. Higher values make the sprite more transparent.</td>
         </tr>
 
         <tr>
             <td><img src="set_ghost.svg" loading="lazy" alt="Set Ghost Effect to 0" width="120"></td>
-            <td><code>sprite.getGraphicEffects().put(GraphicEffect.GHOST, 0);</code></td>
-            <td class="note">Resets the ghost effect to 0 (fully visible).</td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.FADE, 0);</code></td>
+            <td class="note">Resets the fade effect to 0 (fully visible).</td>
         </tr>
                 <tr>
             <td><img src="clear_graphic.svg" loading="lazy" alt="Clear Graphic Effects" width="120"></td>
             <td><code>sprite.getGraphicEffects().clear();</code></td>
-            <td class="note">Removes all graphic effects at once (color, ghost, brightness, etc.) and resets them to default.</td>
+            <td class="note">Removes all graphic effects at once (color, fade, brightness, etc.) and resets them to default.</td>
         </tr>
 
         <tr>
