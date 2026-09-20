@@ -1,997 +1,1714 @@
-<html lang="en">
-    <head>
-        <title>Scratch blocks in Sparkle API - SparkleJ Framework</title>
-        <style>
-            td {
-                padding: 2;
-            }
-        </style>
-    </head>
-    <body>
-        <header style="text-align: left; background-color: #676767;">
-            <style>
-                td {
-                    font-size: large;
-                }
-            </style>
-            <table style="border-spacing: 15px 0;"><tr>
-                <td><img src="/favicon.ico" alt="Favicon"/></td>
-                <td><b>SparkleJ Framework</b></td>
-                <td/>
-                <td><a href="/">Home</a></td>
-                <td><a href="https://github.com/SparkleJ-Framework">GitHub</a></td>
-            </tr></table>
-        </header>
-        <h1 style="text-align: center;">Scratch Block → Sparkle API Calls Mapping</h1>
-        <h3 style="text-align: center;"><i>Warning - this page has a lot of images. Loading it may heavily affect the Internet traffic.</i></h3>
-        <p>
-            This page shows Java statements/expressions that use Sparkle API and do something similar to what a certain <a href="https://scratch.mit.edu">Scratch</a> block would do. This can be useful for translating
-            your Scratch project into Sparkle! This can't be done automatically with a converter, since there are many design differences between Scratch and Sparkle. For example,
-            <code>Sprite</code>s in Sparkle do not execute or even hold any kind of code, they're just renderable data. And multiple <code>Stage</code> instances can be created, did you know that?
-        </p>
-        <p>
-            This mapping was created for Sparkle version <code>0.1-beta</code>. May change in the future!
-        </p>
-        <p>
-            In the following code snippets, replace <code>sprite</code> with your target <code>Sprite</code> instance, <code>stage</code> with your target <code>Stage</code> instance,
-            <code>otherSprite</code> with a different <code>Sprite</code> instance, and <code>"spriteId"</code> with the target <code>Sprite</code>'s ID on the target <code>Stage</code>.
-        </p>
-        <p>
-            <table>
-                <thead>
-                    <tr>
-                        <td><b>Scratch block</b></td>
-                        <td><b>Sparkle API equivalent</b></td>
-                        <td><b>Notes</b></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td colspan="3"><h2>Motion</h2></td></tr>
-                    <tr>
-                        <td><img src="move_steps.svg" loading="lazy" alt="Move 10 Steps"/></td>
-                        <td><code>sprite.moveSteps(10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="turn_right.svg" loading="lazy" alt="Turn Right 15 Degrees"/></td>
-                        <td><code>sprite.rotateRight(15);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="turn_left.svg" loading="lazy" alt="Turn Left 15 Degrees"/></td>
-                        <td><code>sprite.rotateLeft(15);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_random.svg" loading="lazy" alt="Go to Random Position"/></td>
-                        <td><code>
-                            double halfWidth = stage.getWidth() / 2d;<br>
-                            double halfHeight = stage.getHeight() / 2d;<br>
-                            sprite.goTo(Constants.RANDOM.nextDouble(-halfWidth, halfWidth), Constants.RANDOM.nextDouble(-halfHeight, halfHeight));
-                        </code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_other.svg" loading="lazy" alt="Go to Other Sprite"/></td>
-                        <td><code>sprite.copyPos(otherSprite);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_mouse.svg" loading="lazy" alt="Go to Mouse Pointer"/></td>
-                        <td>No direct equivalent; working on that 😅</td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_xy.svg" loading="lazy" alt="Go to XY"/></td>
-                        <td><code>sprite.goTo(48, 36);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="glide_random.svg" loading="lazy" alt="Glide 1 secs to Random Position"/></td>
-                        <td><code>
-                            double halfWidth = stage.getWidth() / 2d;<br>
-                            double halfHeight = stage.getHeight() / 2d;<br>
-                            sprite.glide(Constants.RANDOM.nextDouble(-halfWidth, halfWidth), Constants.RANDOM.nextDouble(-halfHeight, halfHeight), 1000);
-                        </code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="glide_other.svg" loading="lazy" alt="Glide 1 secs to Other Sprite"/></td>
-                        <td><code>sprite.glideTo(otherSprite, 1000);</code></td>
-                        <td>
-                            Second argument - <code>1000</code> - represents the count of milliseconds to glide for. <code>1000 ms = 1 s</code><br>
-                            Sparkle (and Java) use milliseconds/nanoseconds instead of seconds since the time amount must be a whole number, so, to allow more precision, the time
-                            unit itself should be smaller.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="glide_mouse.svg" loading="lazy" alt="Glide 1 secs to Mouse Pointer"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="glide_xy.svg" loading="lazy" alt="Glide 1 secs to XY"/></td>
-                        <td><code>sprite.goTo(48, 36, 1000);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="dir_set.svg" loading="lazy" alt="Point in Direction 90"/></td>
-                        <td><code>sprite.setDirection(90);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="dir_mouse.svg" loading="lazy" alt="Point towards Mouse Pointer"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="dir_other.svg" loading="lazy" alt="Point towards Other Sprite"/></td>
-                        <td><code>sprite.pointTowards(otherSprite);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="dir_random.svg" loading="lazy" alt="Point towards Random Direction"/></td>
-                        <td><code>sprite.setDirection(Constants.RANDOM.nextDouble(0, 360));</code></td>
-                        <td>loading="lazy" although this option can't be selected in vanilla Scratch, it can be set using file editing or Scratch mods like <a href="https://turbowarp.org">TurboWarp</a>, and is completely functional in vanilla Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_x.svg" loading="lazy" alt="Change X by 10"/></td>
-                        <td><code>sprite.changeX(10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_x.svg" loading="lazy" alt="Set X to 48"/></td>
-                        <td><code>sprite.setX(48);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_y.svg" loading="lazy" alt="Change Y by 10"/></td>
-                        <td><code>sprite.changeY(10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_y.svg" loading="lazy" alt="Set Y to 36"/></td>
-                        <td><code>sprite.setY(36);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="if_on_edge_bounce.svg" loading="lazy" alt="If on Edge, Bounce"/></td>
-                        <td><code>sprite.bounce();</code></td>
-                        <td>You're right, <code>Sprite.bounce()</code> does not check if the sprite is on edge. I don't really know how to check that with current API, sorry 😅</td>
-                    </tr>
-                    <tr>
-                        <td><img src="rot_style_left_right.svg" loading="lazy" alt="Set Rotation Style: Left-Right"/></td>
-                        <td><code>sprite.setRotationMode(RotationMode.LEFT_RIGHT);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="rot_style_dont_rotate.svg" loading="lazy" alt="Set Rotation Style: Don't Rotate"/></td>
-                        <td><code>sprite.setRotationMode(RotationMode.NO_ROTATION);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="rot_style_all_around.svg" loading="lazy" alt="Set Rotation Style: All Around"/></td>
-                        <td><code>sprite.setRotationMode(RotationMode.ALL_AROUND);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="rot_style_up_down.svg" loading="lazy" alt="Set Rotation Style: Up-Down"/></td>
-                        <td><code>sprite.setRotationMode(RotationMode.UP_DOWN);</code></td>
-                        <td>This rotation mode comes from <a href="https://penguinmod.com">PenguinMod</a> and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="rot_style_look_at.svg" loading="lazy" alt="Set Rotation Style: Look At"/></td>
-                        <td><code>sprite.setRotationMode(RotationMode.LOOK_AT);</code></td>
-                        <td>This rotation mode comes from <a href="https://penguinmod.com">PenguinMod</a> and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_x.svg" loading="lazy" alt="X Position"/></td>
-                        <td><code>sprite.getX()</code></td>
-                        <td>Note the absence of semicolon - this is not a statement, it's an expression!</td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_y.svg" loading="lazy" alt="Y Position"/></td>
-                        <td><code>sprite.getY()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_dir.svg" loading="lazy" alt="Direction"/></td>
-                        <td><code>sprite.getDirection()</code></td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Looks</h2></td></tr>
-                    <tr>
-                        <td><img src="say_for.svg" loading="lazy" alt="Say Hello! for 2 Seconds"/></td>
-                        <td><code>sprite.sayFor("Hello!", 2000);</code></td>
-                        <td>
-                            The sprite will get a text bubble as a property, however, it will not be rendered, because text rendering is currently unsupported 😅<br>
-                            Also notice that <i>Hello!</i> is in quotation marks - this is how all strings should be enclosed in Java.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="say.svg" loading="lazy" alt="Say Hello!"/></td>
-                        <td><code>sprite.say("Hello!");</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="think_for.svg" loading="lazy" alt="Think Hmm... for 2 Seconds"/></td>
-                        <td><code>sprite.thinkFor("Hmm...", 2000);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="think.svg" loading="lazy" alt="Think Hmm..."/></td>
-                        <td><code>sprite.think("Hmm...");</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="switch_costume.svg" loading="lazy" alt="Switch Costume to costume1"/></td>
-                        <td><code>sprite.setCostume("costume1");</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="next_costume.svg" loading="lazy" alt="Next Costume"/></td>
-                        <td><code>sprite.incrementCostume();</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="switch_backdrop.svg" loading="lazy" alt="Switch Backdrop to backdrop1"/></td>
-                        <td><code>stage.setBackdrop("backdrop1");</code></td>
-                        <td>Note that backdrop is a property of a <code>Stage</code> instance, not <code>Sprite</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="switch_backdrop_and_wait.svg" loading="lazy" alt="Switch Backdrop to backdrop1 and Wait"/></td>
-                        <td><code>stage.setBackdrop("backdrop1", true);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="next_backdrop.svg" loading="lazy" alt="Next Backdrop"/></td>
-                        <td><code>stage.incrementBackdrop();</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_size.svg" loading="lazy" alt="Change Size by 10"/></td>
-                        <td><code>sprite.changeSize(10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_size.svg" loading="lazy" alt="Set Size to 100%"/></td>
-                        <td><code>sprite.setSize(100);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_stretch_xy.svg" loading="lazy" alt="Set Stretch to XY"/></td>
-                        <td><code>sprite.setStretchX(100);<br>sprite.setStretchY(50);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_stretch_xy.svg" loading="lazy" alt="Change Stretch by XY"/></td>
-                        <td><code>sprite.changeStretchX(10);<br>sprite.changeStretchY(5);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_stretch_x.svg" loading="lazy" alt="Set Stretch X to 100"/></td>
-                        <td><code>sprite.setStretchX(100);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_stretch_y.svg" loading="lazy" alt="Set Stretch Y to 100"/></td>
-                        <td><code>sprite.setStretchY(100);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_stretch_x.svg" loading="lazy" alt="Change Stretch X by 10"/></td>
-                        <td><code>sprite.changeStretchX(10);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_stretch_y.svg" loading="lazy" alt="Change Stretch Y by 10"/></td>
-                        <td><code>sprite.changeStretchY(10);</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_color.svg" loading="lazy" alt="Change Color Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.HUE_SHIFT, 45);</code></td>
-                        <td>Unlike Scratch's "color" graphic effect, which is measured in some kinda weird unit (0 - 200), Sparkle's <code>HUE_SHIFT</code> graphic effect is measured in degrees (0 - 360), so we have to convert from Scratch's range to Sparkle's range: <code>25 * (360 / 200) = 45</code>.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_color.svg" loading="lazy" alt="Set Color Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.HUE_SHIFT, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_fisheye.svg" loading="lazy" alt="Change Fisheye Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.BULGE, 25);</code></td>
-                        <td><code>BULGE</code> effect doesn't work properly yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_fisheye.svg" loading="lazy" alt="Set Fisheye Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.BULGE, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_whirl.svg" loading="lazy" alt="Change Whirl Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.WHIRL, 25);</code></td>
-                        <td><code>WHIRL</code> effect doesn't work properly yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_whirl.svg" loading="lazy" alt="Set Whirl Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.WHIRL, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_pixelate.svg" loading="lazy" alt="Change Pixelate Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.PIXELATION, 25);</code></td>
-                        <td><code>PIXELATION</code> effect doesn't work properly yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_pixelate.svg" loading="lazy" alt="Set Pixelate Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.PIXELATION, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_mosaic.svg" loading="lazy" alt="Change Mosaic Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.MOSAIC, 25);</code></td>
-                        <td><code>MOSAIC</code> effect doesn't work properly yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_mosaic.svg" loading="lazy" alt="Set Mosaic Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.MOSAIC, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_brightness.svg" loading="lazy" alt="Change Brightness Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.BRIGHTNESS, 25);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_brightness.svg" loading="lazy" alt="Set Brightness Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.BRIGHTNESS, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_ghost.svg" loading="lazy" alt="Change Ghost Effect by 25"/></td>
-                        <td><code>sprite.getGraphicEffects().increment(GraphicEffect.FADE, 25);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_ghost.svg" loading="lazy" alt="Set Ghost Effect to 0"/></td>
-                        <td><code>sprite.getGraphicEffects().put(GraphicEffect.FADE, 0);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="clear_graphic.svg" loading="lazy" alt="Clear Graphic Effects"/></td>
-                        <td><code>sprite.getGraphicEffects().clear();</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="show.svg" loading="lazy" alt="Show"/></td>
-                        <td><code>sprite.setVisible(true);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="hide.svg" loading="lazy" alt="Hide"/></td>
-                        <td><code>sprite.setVisible(false);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_front.svg" loading="lazy" alt="Go to Front Layer"/></td>
-                        <td><code>stage.moveToFrontLayer(new SpriteID("spriteId", cloneId));</code></td>
-                        <td>
-                            Sprites do not store their layer; it's a property of Stage.<br>
-                            The clone ID is an <code>int</code> that identifies a sprite's clone. The main sprite's clone ID is always <code>0</code>.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="goto_back.svg" loading="lazy" alt="Go to Back Layer"/></td>
-                        <td><code>stage.moveToBackLayer(new SpriteID("spriteId", cloneId));</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="go_forward.svg" loading="lazy" alt="Go Forward 1 Layer"/></td>
-                        <td><code>stage.moveByLayers(new SpriteID("spriteId", cloneId), 1);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="go_backward.svg" loading="lazy" alt="Go Backward 1 Layer"/></td>
-                        <td><code>stage.moveByLayers(new SpriteID("spriteId", cloneId), -1);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="costume_number.svg" loading="lazy" alt="Costume Number"/></td>
-                        <td><code>sprite.getCostumeIndex()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="costume_name.svg" loading="lazy" alt="Costume Name"/></td>
-                        <td><code>sprite.getCostumeName()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="backdrop_number.svg" loading="lazy" alt="Backdrop Number"/></td>
-                        <td><code>stage.getBackdropIndex()</code></td>
-                        <td>Once again, note that backdrops belong to a <code>Stage</code> instance.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="backdrop_name.svg" loading="lazy" alt="Backdrop Name"/></td>
-                        <td><code>stage.getBackdropName()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_size.svg" loading="lazy" alt="Size"/></td>
-                        <td>No direct equivalent</td>
-                        <td>In Sparkle, sprites' size isn't stored as a single property, size can be separate for X axis (X stretch) and Y axis (Y stretch). Querying size for sprites with different X and Y stretches doesn't really make sense. If you're sure these two properties are always equal, you can query either of them instead.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="x_stretch.svg" loading="lazy" alt="X Stretch"/></td>
-                        <td><code>sprite.getStretchX()</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="y_stretch.svg" loading="lazy" alt="Y Stretch"/></td>
-                        <td><code>sprite.getStretchY()</code></td>
-                        <td>This block comes from <a href="https://turbowarp.org/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> TurboWarp extension and is not available in Scratch.</td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Sound</h2></td></tr>
-                    <tr>
-                        <td><img src="play_until_done.svg" loading="lazy" alt="Play Sound meow Until Done"/></td>
-                        <td><code>sprite.startSound("meow", true);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="start_sound.svg" loading="lazy" alt="Start Sound meow"/></td>
-                        <td><code>sprite.startSound("meow");</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="stop_sounds.svg" loading="lazy" alt="Stop All Sounds"/></td>
-                        <td>No direct equivalent</td>
-                        <td>This feature of Scratch isn't very convenient. It doesn't allow to choose which sounds to stop. You must collect IDs of sounds (return values of <code>startSound(...)</code> methods) to stop instead.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_pitch.svg" loading="lazy" alt="Change Pitch Effect by 10"/></td>
-                        <td><code>sprite.getSoundEffects().increment(SoundEffect.PITCH, 10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_pan.svg" loading="lazy" alt="Change Pan Left/Right Effect by 10"/></td>
-                        <td><code>sprite.getSoundEffects().increment(SoundEffect.PAN, 10);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_pitch.svg" loading="lazy" alt="Set Pitch Effect to 100"/></td>
-                        <td><code>sprite.getSoundEffects().put(SoundEffect.PITCH, 100);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_pan.svg" loading="lazy" alt="Set Pan Left/Right Effect to 100"/></td>
-                        <td><code>sprite.getSoundEffects().put(SoundEffect.PAN, 100);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_volume.svg" loading="lazy" alt="Change Volume by -10"/></td>
-                        <td><code>sprite.getSoundEffects().decrement(SoundEffect.VOLUME, 10);</code></td>
-                        <td><code>VOLUME</code> is a sound effect in Sparkle, not a separate property.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_volume.svg" loading="lazy" alt="Set Volume to 100%"/></td>
-                        <td><code>sprite.getSoundEffects().put(SoundEffect.VOLUME, 100);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="clear_sound.svg" loading="lazy" alt="Clear Sound Effects"/></td>
-                        <td><code>sprite.getSoundEffects().clear();</code></td>
-                        <td>This <i>does</i> affect volume since it's a sound effect.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_volume.svg" loading="lazy" alt="Volume"/></td>
-                        <td><code>sprite.getSoundEffects().getDouble(SoundEffect.VOLUME)</code></td>
-                    </tr>
-                    <tr><td><h2>Events</h2></td></tr>
-                    <tr>
-                        <td><img src="on_flag_clicked.svg" loading="lazy" alt="When Green Flag Clicked"/></td>
-                        <td><code>Global.when(StartEvent.class, e -> {<br>&nbsp;// your code...<br>});</code></td>
-                        <td>This is <b>not</b> the only way to register event handlers. See <code>Global</code> and <code>EventDispatcher</code> classes.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_key_pressed.svg" loading="lazy" alt="When Some Key Pressed"/></td>
-                        <td><code>Global.when(KeyboardEvent.KeyPressedEvent.class, e -> {<br>
-                        &nbsp;if (e.key() == Key.SOME_KEY) {<br>
-                        &nbsp;&nbsp;// your code...<br>
-                        &nbsp;}<br>
-                        });</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_sprite_clicked.svg" loading="lazy" alt="When This Sprite Clicked"/></td>
-                        <td><code>Global.when(MouseEvent.MouseClickedEvent.class, e -> {<br>
-                        &nbsp;if (GraphicsUtils.getTargetObject(e) instanceof SpriteID(String thatId, int _) && "spriteId".equals(thatId)) {<br>
-                        &nbsp;&nbsp;// your code...<br>
-                        &nbsp;}<br>
-                        });</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_stage_clicked.svg" loading="lazy" alt="When Stage Clicked"/></td>
-                        <td><code>Global.when(MouseEvent.MouseClickedEvent.class, e -> {<br>
-                        &nbsp;if (GraphicsUtils.getTargetObject(e) == null) {<br>
-                        &nbsp;&nbsp;// your code...<br>
-                        &nbsp;}<br>
-                        });</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_backdrop.svg" loading="lazy" alt="When Backdrop Switches to backdrop1"/></td>
-                        <td><code>Global.when(BackdropChangeEvent.After.class, e -> {<br>
-                        &nbsp;if (e.newBackdropId() == stage.getAssets().texturesIndexesByName().getInt("backdrop1")) {<br>
-                        &nbsp;&nbsp;// your code...<br>
-                        &nbsp;}<br>
-                        });</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_loudness.svg" loading="lazy" alt="When Loudness > 10"/></td>
-                        <td>No direct equivalent</td>
-                        <td>This functionality is planned for an extension module that allows microphone, camera, etc. access. It will <b>not</b> be available in the core module.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_timer.svg" loading="lazy" alt="When Timer > 10"/></td>
-                        <td>No direct equivalent</td>
-                        <td>Sparkle does not start a timer automatically, unlike Scratch. You may do it with <code>Stopwatch</code> classes.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_message.svg" loading="lazy" alt="When I receive message1"/></td>
-                        <td><code>Global.when(MessageEvent.class, e -> {<br>
-                        &nbsp;if (e.messageId().equals("message1")) {<br>
-                        &nbsp;&nbsp;// your code...<br>
-                        &nbsp;}<br>
-                        });</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="fire_message.svg" loading="lazy" alt="Broadcast message1"/></td>
-                        <td><code>Global.fire(new MessageEvent("message1"));</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="fire_message_and_wait.svg" loading="lazy" alt="Broadcast message1 and Wait"/></td>
-                        <td><code>Global.fireAndWait(new MessageEvent("message1"));</code></td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Control</h2></td></tr>
-                    <tr>
-                        <td><img src="wait.svg" loading="lazy" alt="Wait 1 Second"/></td>
-                        <td><code>WaitUtils.waitFor(1000);</code></td>
-                        <td>Remember - specify time in milliseconds!</td>
-                    </tr>
-                    <tr>
-                        <td><img src="repeat.svg" loading="lazy" alt="Repeat 10 times"/></td>
-                        <td><code>for (int i = 0; i < 10; i++) {<br>
-                        &nbsp;// your code...<br>
-                        }</code></td>
-                        <td>This is a standard Java feature 😄</td>
-                    </tr>
-                    <tr>
-                        <td><img src="forever.svg" loading="lazy" alt="Forever"/></td>
-                        <td><code>while (true) {<br>
-                        &nbsp;// your code...<br>
-                        }</code></td>
-                        <td>Actual representation depends on the context. E.g. for starting game loops, <code>TickEvent</code> handler must be used instead.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="if.svg" loading="lazy" alt="If Then"/></td>
-                        <td><code>if (something) {<br>
-                        &nbsp;// your code...<br>
-                        }</code></td>
-                        <td>Replace <code>something</code> with your desired boolean expression.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="if_else.svg" loading="lazy" alt="If Then Else"/></td>
-                        <td><code>if (something) {<br>
-                        &nbsp;// code if true...<br>
-                        } else {<br>
-                        &nbsp;// code if false...<br>
-                        }</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="wait_until.svg" loading="lazy" alt="Wait Until"/></td>
-                        <td><code>WaitUtils.waitUntil(() -> something);</code></td>
-                        <td>The <code>() -></code> segment is to create a lambda. Basically, this is required to re-evaluate the specified expression constantly. If you omit that segment, the expression will be evaluated <i>just once</i>, and your program will freeze on this statement if the condition was <code>false</code> at that moment.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="wait_or_until.svg" loading="lazy" alt="Wait 1 Second or Until"/></td>
-                        <td><code>WaitUtils.waitForOrUntil(() -> something, 1000);</code></td>
-                        <td>This block comes from <a href="https://penguinmod.com">PenguinMod</a> and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="repeat_until.svg" loading="lazy" alt="Repeat Until"/></td>
-                        <td><code>while (!something) {<br>
-                        &nbsp;// your code...<br>
-                        }</code></td>
-                        <td>The exclamation mark before the boolean expression negates it (<code>true</code> becomes <code>false</code> and vice versa).</td>
-                    </tr>
-                    <tr>
-                        <td><img src="while.svg" loading="lazy" alt="While"/></td>
-                        <td><code>while (something) {<br>
-                        &nbsp;// your code...<br>
-                        }</code></td>
-                        <td>loading="lazy" although this block can't be found in vanilla Scratch, it can be added using file editing or Scratch mods like <a href="https://turbowarp.org">TurboWarp</a>, and is completely functional in vanilla Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="stop_all.svg" loading="lazy" alt="Stop All"/></td>
-                        <td>Context-dependent; usually: <br><code>stage.stop();<br>return;</code></td>
-                        <td>To stop the entire program <i>(closes all windows!)</i>: <code>System.exit(0);</code><br>
-                        To stop a <code>Stage</code> instance: <code>stage.stop();</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="stop_this.svg" loading="lazy" alt="Stop This Script"/></td>
-                        <td>Context-dependent; usually <code>return;</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="stop_other.svg" loading="lazy" alt="Stop Other Scripts in Sprite"/></td>
-                        <td>No direct equivalent</td>
-                        <td><code>Sprite</code>s in Sparkle do not store any code, and code suspension must be managed by the application, which means this block just doesn't make any sense in Sparkle.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="on_clone.svg" loading="lazy" alt="When I Start as a Clone"/></td>
-                        <td>No direct equivalent</td>
-                        <td><code>Sprite</code>s in Sparkle do not store any code, and no event is fired upon clone creation. Instead, retrieve the clone <code>Sprite</code> instance upon
-                        creation to customize it.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="create_clone.svg" loading="lazy" alt="Create Clone"/></td>
-                        <td><code>
-                        int cloneId = stage.createClone("spriteId");<br>
-                        Sprite cloneSprite = stage.getSprite("spriteId", cloneId);
-                        </code></td>
-                        <td>The clone sprite's initial layer will be the front one, unlike in Scratch, where it gets the back one.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="delete_all_clones.svg" loading="lazy" alt="Delete Clones"/></td>
-                        <td><code>stage.deleteAllClones("spriteId");</code></td>
-                        <td>This block comes from <a href="https://penguinmod.com">PenguinMod</a> and is not available in Scratch.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="delete_clone.svg" loading="lazy" alt="Delete This Clone"/></td>
-                        <td><code>stage.deleteClone("spriteId", cloneId);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="is_clone.svg" loading="lazy" alt="Is Clone?"/></td>
-                        <td><code>cloneId != 0</code></td>
-                        <td>This block comes from <a href="https://penguinmod.com">PenguinMod</a> and is not available in Scratch.</td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Sensing</h2></td></tr>
-                    <tr>
-                        <td><img src="touching_mouse.svg" loading="lazy" alt="Touching Mouse Pointer?"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="touching_edge.svg" loading="lazy" alt="Touching Edge?"/></td>
-                        <td>Too complex</td>
-                        <td rowspan="2">This is possible to query in Sparkle, but it's too much boilerplate for this list. Working on that!</td>
-                    </tr>
-                    <tr>
-                        <td><img src="touching_other.svg" loading="lazy" alt="Touching Other Sprite?"/></td>
-                        <td>Too complex</td>
-                    </tr>
-                    <tr>
-                        <td><img src="touching_color.svg" loading="lazy" alt="Touching Color?"/></td>
-                        <td>Not possible yet</td>
-                        <td rowspan="2">Can't read color data from surface 😭</td>
-                    </tr>
-                    <tr>
-                        <td><img src="color_touching_color.svg" loading="lazy" alt="Color Is Touching Color?"/></td>
-                        <td>Not possible yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="distance_mouse.svg" loading="lazy" alt="Distance to Mouse Pointer"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="distance_other.svg" loading="lazy" alt="Distance to Other Sprite"/></td>
-                        <td><code>Math.hypot(sprite.getX() - otherSprite.getX(), sprite.getY() - otherSprite.getY())</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="ask_and_wait.svg" loading="lazy" alt="Ask and Wait"/></td>
-                        <td>No direct equivalent</td>
-                        <td rowspan="2">This functionality is planned for an extension module that adds UI elements. It will <b>not</b> be available in the core module.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="answer.svg" loading="lazy" alt="Answer"/></td>
-                        <td>No direct equivalent</td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_key.svg" loading="lazy" alt="Is Key Pressed?"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="get_mouse_button.svg" loading="lazy" alt="Mouse Down?"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="mouse_x.svg" loading="lazy" alt="Mouse X"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="mouse_y.svg" loading="lazy" alt="Mouse Y"/></td>
-                        <td>No direct equivalent yet</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_draggable.svg" loading="lazy" alt="Set Drag Mode: Draggable"/></td>
-                        <td rowspan="2">No direct equivalent</td>
-                        <td rowspan="2">Scratch's dragging doesn't allow customization of how the sprite must move towards the cursor, and most applications don't need dragging anyway. This feature must be implemented by the application if needed.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_not_draggable.svg" loading="lazy" alt="Set Drag Mode: Not Draggable"/></td>
-                    </tr>
-                    <tr>
-                        <td><img src="loudness.svg" loading="lazy" alt="Loudness"/></td>
-                        <td>No direct equivalent</td>
-                        <td>This functionality is planned for an extension module that allows microphone, camera, etc. access. It will <b>not</b> be available in the core module.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="timer.svg" loading="lazy" alt="Timer"/></td>
-                        <td rowspan="2">No direct equivalent</td>
-                        <td rowspan="2">Sparkle does not start a timer automatically, unlike Scratch. You may do it with <code>Stopwatch</code> classes.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="reset_timer.svg" loading="lazy" alt="Reset Timer"/></td>
-                    </tr>
-                    <tr>
-                        <td><img src="backdrop_num_of_stage.svg" loading="lazy" alt="Backdrop Number of Stage"/></td>
-                        <td><code>stage.getBackdropIndex()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="backdrop_name_of_stage.svg" loading="lazy" alt="Backdrop Name of Stage"/></td>
-                        <td><code>stage.getBackdropName()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="volume_of_stage.svg" loading="lazy" alt="Volume of Stage"/></td>
-                        <td><code>100</code></td>
-                        <td>Stage doesn't have sound effects (at least for now)</td>
-                    </tr>
-                    <tr>
-                        <td><img src="variable_of_stage.svg" loading="lazy" alt="Variable of Stage"/></td>
-                        <td><code>stage.getVariable("my variable").getValue()</code></td>
-                        <td>You might want to use a method other than <code>getValue()</code> to get the variable's value, if it's a primitive variable</td>
-                    </tr>
-                    <tr>
-                        <td><img src="x_of_sprite.svg" loading="lazy" alt="X Position of Sprite"/></td>
-                        <td><code>sprite.getX()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="y_of_sprite.svg" loading="lazy" alt="Y Position of Sprite"/></td>
-                        <td><code>sprite.getY()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="dir_of_sprite.svg" loading="lazy" alt="Direction of Sprite"/></td>
-                        <td><code>sprite.getDirection()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="costume_num_of_sprite.svg" loading="lazy" alt="Costume Number of Sprite"/></td>
-                        <td><code>sprite.getCostumeIndex()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="costume_name_of_sprite.svg" loading="lazy" alt="Costume Name of Sprite"/></td>
-                        <td><code>sprite.getCostumeName()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="size_of_sprite.svg" loading="lazy" alt="Size of Sprite"/></td>
-                        <td>No direct equivalent</td>
-                    </tr>
-                    <tr>
-                        <td><img src="volume_of_sprite.svg" loading="lazy" alt="Volume of Sprite"/></td>
-                        <td><code>sprite.getSoundEffects().getDouble(SoundEffect.VOLUME)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="variable_of_sprite.svg" loading="lazy" alt="Variable of Sprite"/></td>
-                        <td><code>sprite.getVariable("private variable").getValue()</code></td>
-                        <td>You might want to use a method other than <code>getValue()</code> to get the variable's value, if it's a primitive variable</td>
-                    </tr>
-                    <tr>
-                        <td><img src="year.svg" loading="lazy" alt="Current Year"/></td>
-                        <td><code>LocalDate.now().getYear()</code></td>
-                        <td>The provided examples of querying time might not be the best options in your case. See the <code>java.time</code> package.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="month.svg" loading="lazy" alt="Current Month"/></td>
-                        <td><code>LocalDate.now().getMonthValue()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="date.svg" loading="lazy" alt="Current Date"/></td>
-                        <td><code>LocalDate.now().getDayOfMonth()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="day_of_week.svg" loading="lazy" alt="Current Day of Week"/></td>
-                        <td><code>Math.floorMod(LocalDate.now().toEpochDay() + 5, 7)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="hour.svg" loading="lazy" alt="Current Hour"/></td>
-                        <td><code>LocalTime.now().getHour()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="minute.svg" loading="lazy" alt="Current Minute"/></td>
-                        <td><code>LocalTime.now().getMinute()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="second.svg" loading="lazy" alt="Current Second"/></td>
-                        <td><code>LocalTime.now().getSecond()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="days_since_2000.svg" loading="lazy" alt="Days Since 2000"/></td>
-                        <td><code>Duration.between(LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.now()).toNanos() / 86400000000000d</code></td>
-                        <td>This block is often used to calculate a certain duration in Scratch. In Java, however, it's recommended to use the <code>Duration</code> class to measure durations without other (unnecessary) calculations. You can still use this code if you want a numeric value from the start, though.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="username.svg" loading="lazy" alt="Username"/></td>
-                        <td>No direct equivalent</td>
-                        <td>Sparkle is not an account system in any way, it's just a framework for graphical apps. This wouldn't make sense in the core. Applications must implement this functionlity themselves if needed.</td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Operators</h2></td></tr>
-                    <tr>
-                        <td><img src="plus.svg" loading="lazy" alt="Plus"/></td>
-                        <td><code>expr1 + expr2</code></td>
-                        <td><code>expr1</code> and <code>expr2</code> are numeric expressions</td>
-                    </tr>
-                    <tr>
-                        <td><img src="minus.svg" loading="lazy" alt="Minus"/></td>
-                        <td><code>expr1 - expr2</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="times.svg" loading="lazy" alt="Times"/></td>
-                        <td><code>expr1 * expr2</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="over.svg" loading="lazy" alt="Over (division)"/></td>
-                        <td><code>(double) expr1 / expr2</code></td>
-                        <td>Casting to <code>double</code> ensures mathematical division if both expressions are integer. Remove the cast if you want integer division</td>
-                    </tr>
-                    <tr>
-                        <td><img src="random.svg" loading="lazy" alt="Pick Random"/></td>
-                        <td><code>Constants.RANDOM.nextDouble(expr1, expr2)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="more.svg" loading="lazy" alt="More Than"/></td>
-                        <td><code>expr1 &gt; expr2</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="less.svg" loading="lazy" alt="Less Than"/></td>
-                        <td><code>expr1 &lt; expr2</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="equals.svg" loading="lazy" alt="Equals"/></td>
-                        <td><code>expr1 == expr2</code></td>
-                        <td>Here, <code>expr1</code> and <code>expr2</code> don't have to be numeric, they just must be of compatible types. Use <code>equals()</code> for object expressions if you want to compare their values.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="and.svg" loading="lazy" alt="And"/></td>
-                        <td><code>expr1 && expr2</code></td>
-                        <td><code>expr1</code> and <code>expr2</code> must be boolean expressions</td>
-                    </tr>
-                    <tr>
-                        <td><img src="or.svg" loading="lazy" alt="Or"/></td>
-                        <td><code>expr1 || expr2</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="not.svg" loading="lazy" alt="Not"/></td>
-                        <td><code>!expr</code></td>
-                        <td><code>expr</code> must be a boolean expression</td>
-                    </tr>
-                    <tr>
-                        <td><img src="join.svg" loading="lazy" alt="Join"/></td>
-                        <td><code>String.valueOf(expr1) + String.valueOf(expr2)</code></td>
-                        <td><b>Here</b>, <code>expr1</code> and <code>expr2</code> can be expressions of <i>any</i> type (except <code>void</code> ofc)</td>
-                    </tr>
-                    <tr>
-                        <td><img src="letter_of.svg" loading="lazy" alt="Letter of"/></td>
-                        <td><code>String.valueOf(expr2).charAt(expr1)</code></td>
-                        <td><code>expr1</code> must be an integer expression, <code>expr2</code> can be an expression of any type</td>
-                    </tr>
-                    <tr>
-                        <td><img src="length.svg" loading="lazy" alt="Length of"/></td>
-                        <td><code>String.valueOf(expr).length()</code></td>
-                        <td><code>expr</code> can be an expression of any type</td>
-                    </tr>
-                    <tr>
-                        <td><img src="contains.svg" loading="lazy" alt="Contains?"/></td>
-                        <td><code>String.valueOf(expr1).contains(String.valueOf(expr2))</code></td>
-                        <td><code>expr1</code> and <code>expr2</code> can be expressions of any type</td>
-                    </tr>
-                    <tr>
-                        <td><img src="modulo.svg" loading="lazy" alt="Mod"/></td>
-                        <td><code>expr1 % expr2</code></td>
-                        <td><code>expr1</code> and <code>expr2</code> must be numerical expressions</td>
-                    </tr>
-                    <tr>
-                        <td><img src="round.svg" loading="lazy" alt="Round"/></td>
-                        <td><code>Math.round(expr)</code></td>
-                        <td><code>expr</code> must be a numerical expression</td>
-                    </tr>
-                    <tr>
-                        <td><img src="abs.svg" loading="lazy" alt="Abs Of"/></td>
-                        <td><code>Math.abs(expr)</code></td>
-                        <td><code>expr</code> must be a numerical expression</td>
-                    </tr>
-                    <tr>
-                        <td><img src="floor.svg" loading="lazy" alt="Floor Of"/></td>
-                        <td><code>Math.floor(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="ceiling.svg" loading="lazy" alt="Ceiling Of"/></td>
-                        <td><code>Math.ceil(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="sqrt.svg" loading="lazy" alt="Sqrt Of"/></td>
-                        <td><code>Math.sqrt(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="sin.svg" loading="lazy" alt="Sin Of"/></td>
-                        <td><code>Math.sin(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="cos.svg" loading="lazy" alt="Cos Of"/></td>
-                        <td><code>Math.cos(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="tan.svg" loading="lazy" alt="Tan Of"/></td>
-                        <td><code>Math.tan(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="asin.svg" loading="lazy" alt="Asin Of"/></td>
-                        <td><code>Math.asin(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="acos.svg" loading="lazy" alt="Acos Of"/></td>
-                        <td><code>Math.acos(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="atan.svg" loading="lazy" alt="Atan Of"/></td>
-                        <td><code>Math.atan(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="ln.svg" loading="lazy" alt="Natural Logarithm Of"/></td>
-                        <td><code>Math.log(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="log10.svg" loading="lazy" alt="Logarithm Of"/></td>
-                        <td><code>Math.log10(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="exp.svg" loading="lazy" alt="e to the Power Of"/></td>
-                        <td><code>Math.exp(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="pow10.svg" loading="lazy" alt="10 to the Power Of"/></td>
-                        <td><code>Math.pow(10, expr)</code></td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Variables</h2></td></tr>
-                    <tr><td colspan="3"><h4>Call <code>registerVariable("variableId", variable)</code> on a <code>Sprite</code>/<code>Stage</code> instance to make a variable/list. In some cases, you'll want to use Java's variables instead (e.g. temporary variables, or properties that do not belong to a <code>Sprite</code>/<code>Stage</code> instance).</h4></td></tr>
-                    <tr><td colspan="3"><h4>See classes in <code>net.fokinatorr.sparkle.variable</code> package for more info.</h4></td></tr>
-                    <tr>
-                        <td><img src="get_variable.svg" loading="lazy" alt="Get Variable's Value"/></td>
-                        <td><code>target.getVariable("my variable").getValue()</code></td>
-                        <td>You might want to use a method other than <code>getValue()</code> to get the variable's value, if it's a primitive variable</td>
-                    </tr>
-                    <tr>
-                        <td><img src="set_variable.svg" loading="lazy" alt="Set Variable to"/></td>
-                        <td><code>target.getVariable("my variable").setValue(expr);</code></td>
-                        <td><code>expr</code> must be the same type as the variable<br>
-                        You might want to use a method other than <code>setValue()</code> to set the variable's value, if it's a primitive variable</td>
-                    </tr>
-                    <tr>
-                        <td><img src="change_variable.svg" loading="lazy" alt="Change Variable by"/></td>
-                        <td><code>Variable&lt;Type&gt; v = target.getVariable("my variable");<br>
-                        v.setDoubleValue(v.getValueAsDouble() + 1);</code></td>
-                        <td>Only works for numeric variables. Replace <code>Type</code> with the variable's actual type.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="show_variable.svg" loading="lazy" alt="Show Variable"/></td>
-                        <td>No direct equivalent</td>
-                        <td rowspan="2">This functionality is planned for an extension module that adds UI elements. It will <b>not</b> be available in the core module.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="hide_variable.svg" loading="lazy" alt="Hide Variable"/></td>
-                        <td>No direct equivalent</td>
-                    </tr>
-                    <tr><td colspan="3"><h2>Lists</h2></td></tr>
-                    <tr><td colspan="3"><b>Common first statement:</b> <code>List&lt;Type&gt; list = target.&lt;List&lt;Type&gt;&gt;getVariable("my list").getValue();</code>, where <code>Type</code> is the type of elements in the list</td></tr>
-                    <tr>
-                        <td><img src="list_add.svg" loading="lazy" alt="Add to"/></td>
-                        <td><code>list.add(expr);</code></td>
-                        <td><code>expr</code> must be of type of elements in the list</td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_delete.svg" loading="lazy" alt="Delete 1 of"/></td>
-                        <td><code>list.remove(0);</code></td>
-                        <td>Unlike in Scratch, indexes start from <code>0</code>, not <code>1</code>.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_clear.svg" loading="lazy" alt="Delete All of"/></td>
-                        <td><code>list.clear();</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_insert.svg" loading="lazy" alt="Insert at 1 of"/></td>
-                        <td><code>list.add(0, expr);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_replace.svg" loading="lazy" alt="Replace item 1 of List with"/></td>
-                        <td><code>list.set(0, expr);</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_get.svg" loading="lazy" alt="Item 1 of"/></td>
-                        <td><code>list.get(0)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_indexof.svg" loading="lazy" alt="Item Number of Expression in"/></td>
-                        <td><code>list.indexOf(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_length.svg" loading="lazy" alt="Length of"/></td>
-                        <td><code>list.size()</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="list_contains.svg" loading="lazy" alt="List Contains?"/></td>
-                        <td><code>list.contains(expr)</code></td>
-                    </tr>
-                    <tr>
-                        <td><img src="show_list.svg" loading="lazy" alt="Show List"/></td>
-                        <td>No direct equivalent</td>
-                        <td rowspan="2">This functionality is planned for an extension module that adds UI elements. It will <b>not</b> be available in the core module.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="hide_list.svg" loading="lazy" alt="Hide List"/></td>
-                        <td>No direct equivalent</td>
-                    </tr>
-                    <tr><td colspan="3"><h2>My Blocks</h2></td></tr>
-                    <tr><td colspan="3"><h4>Java has a similar functionality - methods.</h4></td></tr>
-                    <tr>
-                        <td>Run without screen refresh</td>
-                        <td><code>GraphicsUtils.runWithoutStageRedraw(stage, () -><br>
-                        &nbsp;// your code...<br>
-                        });</code></td>
-                        <td>This is very useful in certain cases in Scratch, and it's a bit weird that it's only available in custom blocks. That's why it can be done anywhere in Sparkle.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </p>
-        <footer style="text-align: right;">
-            <h4>Blocks rendered with <a href="https://scratchblocks.github.io"><code>scratchblocks</code></a>, thanks to them!</h4>
-        </footer>
-    </body>
-</html>
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Scratch blocks in Sparkle API - SparkleJ Framework</title>
+    <style>
+        body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #4a4a4a;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-area img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+    .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+.nav-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+main.content-wrapper {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+h1 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+.blocks-table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 16px;
+}
+
+.blocks-table th,
+.blocks-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  vertical-align: top;
+  text-align: left;
+  max-width: 480px;
+  word-wrap: break-word;
+}
+
+.blocks-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.blocks-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.blocks-table tr:hover {
+  background-color: #f1f8ff;
+}
+
+.blocks-table td img[src$=".svg"] {
+  width: auto;
+  height: auto;
+  display: block;
+  margin-left: 0;
+}
+
+code {
+  background: #f4f4f4;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  color: #d63333;
+  white-space: break-space;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #00aa00;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo-area">
+            <img src="/favicon.ico" alt="SparkleJ Logo">
+            <b>SparkleJ Framework</b>
+        </div>
+        <nav class="nav-links">
+            <a href="https://sparkle.fokinatorr.net/">Home</a>
+            <a href="https://github.com/SparkleJ-Framework">GitHub</a>
+        </nav>
+    </div>
+</header>
+<main class="content-wrapper">
+    
+    
+<h1 style="text-align: center;">Scratch Block → Sparkle API Calls Mapping</h1>
+
+<div class="warning">
+    <b>Warning:</b> This page has a lot of images. Loading it may use a noticeable amount of internet data.
+</div>
+
+<section>
+    <h3>Before you start</h3>
+    <p>
+        This page shows how to do in Sparkle (with Java) what a certain <a href="https://scratch.mit.edu/">Scratch</a> block does.
+        It’s meant to help you translate ideas from Scratch into Sparkle.
+    </p>
+    <p>
+        Important differences you should know:
+    </p>
+    <ul>
+        <li><b>Sprites don’t hold code.</b> In Scratch, a sprite can have scripts attached to it. In Sparkle, <code>Sprite</code> objects are just visual things (position, costume, etc.). The code that moves them lives in your Java program, not inside the sprite.</li>
+        <li><b>Stages manage layers and backdrops.</b> Things like “go to front layer” or “switch backdrop” are actions on the <code>Stage</code>, not the sprite.</li>
+        <li><b>Time is in milliseconds.</b> Many functions that take time (like “glide for 1 second”) expect the time in milliseconds. So 1 second = 1000 milliseconds.</li>
+        <li><b>No automatic timer.</b> Unlike Scratch, Sparkle does not start a timer automatically. If you need a timer, you must create one yourself using Java tools.</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Quick glossary</h3>
+    <dl>
+        <dt><code>Sprite</code></dt>
+        <dd>A character or object on screen (has position, costume, size, etc.).</dd>
+        <dt><code>Stage</code></dt>
+        <dd>The background area where sprites live. It manages backdrops, layers, and some global behavior.</dd>
+        <dt><code>sprite</code> (variable)</dt>
+        <dd>Your Java variable holding a <code>Sprite</code> instance.</dd>
+        <dt><code>stage</code> (variable)</dt>
+        <dd>Your Java variable holding a <code>Stage</code> instance.</dd>
+        <dt><code>otherSprite</code></dt>
+        <dd>Another <code>Sprite</code> you might want to interact with.</dd>
+        <dt><code>"spriteId"</code></dt>
+        <dd>The ID string of a sprite, used to identify it on the stage (e.g., for layer operations).</dd>
+        <dt>Clone ID</dt>
+        <dd>An integer that identifies a specific clone of a sprite. The original sprite’s clone ID is always <code>0</code>.</dd>
+    </dl>
+</section>
+
+<p>
+    This mapping was created for Sparkle version <code>0.1-beta</code>. It may change in the future!
+</p>
+
+<p>
+    In the code snippets below, replace:
+</p>
+<ul>
+    <li><code>sprite</code> with your <code>Sprite</code> variable,</li>
+    <li><code>stage</code> with your <code>Stage</code> variable,</li>
+    <li><code>otherSprite</code> with another <code>Sprite</code> variable,</li>
+    <li><code>"spriteId"</code> with the sprite’s ID string,</li>
+    <li><code>cloneId</code> with an <code>int</code> representing the clone ID (often <code>0</code> for the original).</li>
+</ul>
+
+<hr>
+
+<table class="blocks-table">
+    <thead>
+        <tr>
+            <th>Scratch block</th>
+            <th>Sparkle API equivalent</th>
+            <th>Notes / Beginner tips</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Motion -->
+        <tr><td colspan="3"><h2>Motion</h2></td></tr>
+
+        <tr>
+            <td><img src="move_steps.svg" loading="lazy" alt="Move 10 Steps" width="120"></td>
+            <td><code>sprite.moveSteps(10);</code></td>
+            <td class="note">Moves the sprite forward by 10 steps in its current direction.</td>
+        </tr>
+
+        <tr>
+            <td><img src="turn_right.svg" loading="lazy" alt="Turn Right 15 Degrees" width="120"></td>
+            <td><code>sprite.rotateRight(15);</code></td>
+            <td class="note">Rotates the sprite clockwise by 15 degrees.</td>
+        </tr>
+
+        <tr>
+            <td><img src="turn_left.svg" loading="lazy" alt="Turn Left 15 Degrees" width="120"></td>
+            <td><code>sprite.rotateLeft(15);</code></td>
+            <td class="note">Rotates the sprite counter‑clockwise by 15 degrees.</td>
+        </tr>
+
+        <tr>
+            <td><img src="goto_random.svg" loading="lazy" alt="Go to Random Position" width="120"></td>
+            <td>
+<pre>double halfWidth = stage.getWidth() / 2d;
+double halfHeight = stage.getHeight() / 2d;
+sprite.goTo(
+    Constants.RANDOM.nextDouble(-halfWidth, halfWidth),
+    Constants.RANDOM.nextDouble(-halfHeight, halfHeight)
+);</pre>
+            </td>
+            
+<td class="note">
+    Picks a random X and Y within the stage and moves the sprite there.<br>
+    <b>What's going on here?</b> We first compute half the stage width/height so we can pick positions from negative to positive values. <code>Constants.RANDOM.nextDouble(min, max)</code> gives a random number between those bounds.
+</td></tr>
+
+        <tr>
+            <td><img src="goto_other.svg" loading="lazy" alt="Go to Other Sprite" width="120"></td>
+            <td><code>sprite.copyPos(otherSprite);</code></td>
+            <td class="note">Copies the position (X and Y) from <code>otherSprite</code> to this sprite.</td>
+        </tr>
+
+        <tr>
+            <td><img src="goto_mouse.svg" loading="lazy" alt="Go to Mouse Pointer" width="120"></td>
+            <td>No direct equivalent; working on that 😅</td>
+            <td class="note">Mouse position isn’t exposed yet in the core API.</td>
+        </tr>
+
+        <tr>
+            <td><img src="goto_xy.svg" loading="lazy" alt="Go to XY" width="120"></td>
+            <td><code>sprite.goTo(48, 36);</code></td>
+            <td class="note">Sets the sprite’s position to X=48, Y=36.</td>
+        </tr>
+
+        <tr>
+            <td><img src="glide_random.svg" loading="lazy" alt="Glide 1 secs to Random Position" width="120"></td>
+            <td>
+<pre>double halfWidth = stage.getWidth() / 2d;
+double halfHeight = stage.getHeight() / 2d;
+sprite.glide(
+    Constants.RANDOM.nextDouble(-halfWidth, halfWidth),
+    Constants.RANDOM.nextDouble(-halfHeight, halfHeight),
+    1000
+);</pre>
+            </td>
+            <td class="note">
+                Glides smoothly to a random position over 1000 ms (1 second).<br>
+                The last argument is time in milliseconds.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="glide_other.svg" loading="lazy" alt="Glide 1 secs to Other Sprite" width="120"></td>
+            <td><code>sprite.glideTo(otherSprite, 1000);</code></td>
+            <td class="note">
+                Glides to the position of <code>otherSprite</code> over 1000 ms.<br>
+                <b>Why milliseconds?</b> Java and Sparkle use smaller time units so you can be more precise. 1000 ms = 1 second.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="glide_mouse.svg" loading="lazy" alt="Glide 1 secs to Mouse Pointer" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Mouse pointer position isn’t available in the core API right now.</td>
+        </tr>
+
+        <tr>
+            <td><img src="glide_xy.svg" loading="lazy" alt="Glide 1 secs to XY" width="120"></td>
+            <td><code>sprite.goTo(48, 36, 1000);</code></td>
+            <td class="note">Glides to X=48, Y=36 over 1000 ms. The third argument is the duration in milliseconds.</td>
+        </tr>
+
+        <tr>
+            <td><img src="dir_set.svg" loading="lazy" alt="Point in Direction 90" width="120"></td>
+            <td><code>sprite.setDirection(90);</code></td>
+            <td class="note">Sets the sprite’s direction to 90° (straight up in Scratch coordinates).</td>
+        </tr>
+
+        <tr>
+            <td><img src="dir_mouse.svg" loading="lazy" alt="Point towards Mouse Pointer" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Pointing toward the mouse isn’t implemented in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="dir_other.svg" loading="lazy" alt="Point towards Other Sprite" width="120"></td>
+            <td><code>sprite.pointTowards(otherSprite);</code></td>
+            <td class="note">Makes the sprite face <code>otherSprite</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="dir_random.svg" loading="lazy" alt="Point towards Random Direction" width="120"></td>
+            <td><code>sprite.setDirection(Constants.RANDOM.nextDouble(0, 360));</code></td>
+            <td class="note">
+                Sets a random direction between 0° and 360°.<br>
+                This isn’t a standard Scratch block, but it’s easy to do in code.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="change_x.svg" loading="lazy" alt="Change X by 10" width="120"></td>
+            <td><code>sprite.changeX(10);</code></td>
+            <td class="note">Adds 10 to the sprite’s X coordinate.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_x.svg" loading="lazy" alt="Set X to 48" width="120"></td>
+            <td><code>sprite.setX(48);</code></td>
+            <td class="note">Sets the sprite’s X coordinate to 48.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_y.svg" loading="lazy" alt="Change Y by 10" width="120"></td>
+            <td><code>sprite.changeY(10);</code></td>
+            <td class="note">Adds 10 to the sprite’s Y coordinate.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_y.svg" loading="lazy" alt="Set Y to 36" width="120"></td>
+            <td><code>sprite.setY(36);</code></td>
+            <td class="note">Sets the sprite’s Y coordinate to 36.</td>
+        </tr>
+
+        <tr>
+            <td><img src="if_on_edge_bounce.svg" loading="lazy" alt="If on Edge, Bounce" width="120"></td>
+            <td><code>sprite.bounce();</code></td>
+            <td class="note">
+                <b>Important:</b> <code>sprite.bounce()</code> doesn’t check whether the sprite is actually at the edge. The edge detection is a separate operation; we’re still working on it.
+            </td>
+        </tr>
+                    <tr><td><img src="rot_style_left_right.svg" loading="lazy" alt="Set Rotation Style: Left-Right" width="120"></td>
+            <td><code>sprite.setRotationMode(RotationMode.LEFT_RIGHT);</code></td>
+            <td class="note">
+                Sprite flips horizontally when turning left/right, but doesn’t rotate around its center.<br>
+                <b>What’s going on here?</b> In Java, we pass an enum constant (<code>RotationMode.LEFT_RIGHT</code>) to tell the sprite how to behave when it changes direction.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="rot_style_dont_rotate.svg" loading="lazy" alt="Set Rotation Style: Don&#39;t Rotate" width="120"></td>
+            <td><code>sprite.setRotationMode(RotationMode.NO_ROTATION);</code></td>
+            <td class="note">Sprite keeps facing the same way no matter what direction it moves.</td>
+        </tr>
+
+        <tr>
+            <td><img src="rot_style_all_around.svg" loading="lazy" alt="Set Rotation Style: All Around" width="120"></td>
+            <td><code>sprite.setRotationMode(RotationMode.ALL_AROUND);</code></td>
+            <td class="note">Sprite rotates fully around its center when changing direction.</td>
+        </tr>
+
+        <tr>
+            <td><img src="rot_style_up_down.svg" loading="lazy" alt="Set Rotation Style: Up-Down" width="120"></td>
+            <td><code>sprite.setRotationMode(RotationMode.UP_DOWN);</code></td>
+            <td class="note">
+                This mode comes from <a href="https://penguinmod.com/">PenguinMod</a> and is not available in vanilla Scratch.<br>
+                It behaves like “left-right” but vertically.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="rot_style_look_at.svg" loading="lazy" alt="Set Rotation Style: Look At" width="120"></td>
+            <td><code>sprite.setRotationMode(RotationMode.LOOK_AT);</code></td>
+            <td class="note">
+                This mode comes from <a href="https://penguinmod.com/">PenguinMod</a> and is not available in Scratch.<br>
+                It rotates the sprite to face the current direction, but flips it vertically when facing left-ish directions — so the sprite always appears upright, like it's "looking" somewhere instead of going upside down.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="get_x.svg" loading="lazy" alt="X Position" width="120"></td>
+            <td><code>sprite.getX()</code></td>
+            <td class="note">
+                Returns the current X coordinate as a number.<br>
+                <b>Important:</b> This is an <i>expression</i>, not a statement, so you usually use it inside something else (e.g., <code>double x = sprite.getX();</code>), not on its own with a semicolon as a command.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="get_y.svg" loading="lazy" alt="Y Position" width="120"></td>
+            <td><code>sprite.getY()</code></td>
+            <td class="note">Returns the current Y coordinate as a number.</td>
+        </tr>
+
+        <tr>
+            <td><img src="get_dir.svg" loading="lazy" alt="Direction" width="120"></td>
+            <td><code>sprite.getDirection()</code></td>
+            <td class="note">Returns the sprite’s current direction in degrees (0–360).</td>
+        </tr>
+
+        <!-- Looks -->
+        <tr><td colspan="3"><h2>Looks</h2></td></tr>
+
+        <tr>
+            <td><img src="say_for.svg" loading="lazy" alt="Say Hello! for 2 Seconds" width="120"></td>
+            <td><code>sprite.sayFor("Hello!", 2000);</code></td>
+            <td class="note">
+                Shows a speech bubble with “Hello!” for 2000 ms (2 seconds).<br>
+                <b>Beginner tip:</b> Text in Java must be in double quotes (<code>"Hello!"</code>). Single quotes are for single characters only.<br>
+                Right now, text bubbles exist as data but aren’t rendered — we’re working on that.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="say.svg" loading="lazy" alt="Say Hello!" width="120"></td>
+            <td><code>sprite.say("Hello!");</code></td>
+            <td class="note">Shows a speech bubble until something else changes it.</td>
+        </tr>
+
+        <tr>
+            <td><img src="think_for.svg" loading="lazy" alt="Think Hmm... for 2 Seconds" width="120"></td>
+            <td><code>sprite.thinkFor("Hmm...", 2000);</code></td>
+            <td class="note">Shows a thought bubble for 2000 ms.</td>
+        </tr>
+
+        <tr>
+            <td><img src="think.svg" loading="lazy" alt="Think Hmm..." width="120"></td>
+            <td><code>sprite.think("Hmm...");</code></td>
+            <td class="note">Shows a thought bubble until changed.</td>
+        </tr>
+
+        <tr>
+            <td><img src="switch_costume.svg" loading="lazy" alt="Switch Costume to costume1" width="120"></td>
+            <td><code>sprite.setCostume("costume1");</code></td>
+            <td class="note">Switches the sprite to the costume named “costume1”. Make sure the name matches exactly (case-sensitive).</td>
+        </tr>
+
+        <tr>
+            <td><img src="next_costume.svg" loading="lazy" alt="Next Costume" width="120"></td>
+            <td><code>sprite.incrementCostume();</code></td>
+            <td class="note">Moves to the next costume in the list. If it’s already on the last one, it wraps to the first.</td>
+        </tr>
+
+        <tr>
+            <td><img src="switch_backdrop.svg" loading="lazy" alt="Switch Backdrop to backdrop1" width="120"></td>
+            <td><code>stage.setBackdrop("backdrop1");</code></td>
+            <td class="note">
+                Backdrops belong to the <code>Stage</code>, not the sprite.<br>
+                Use your <code>stage</code> variable here.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="switch_backdrop_and_wait.svg" loading="lazy" alt="Switch Backdrop to backdrop1 and Wait" width="120"></td>
+            <td><code>stage.setBackdrop("backdrop1", true);</code></td>
+            <td class="note">The second argument <code>true</code> means “wait” before continuing the code.</td>
+        </tr>
+
+        <tr>
+            <td><img src="next_backdrop.svg" loading="lazy" alt="Next Backdrop" width="120"></td>
+            <td><code>stage.incrementBackdrop();</code></td>
+            <td class="note">Switches to the next backdrop on the stage.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_size.svg" loading="lazy" alt="Change Size by 10" width="120"></td>
+            <td><code>sprite.changeSize(10);</code></td>
+            <td class="note">Changes the sprite’s size by 10%. Positive makes it bigger, negative smaller.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_size.svg" loading="lazy" alt="Set Size to 100%" width="120"></td>
+            <td><code>sprite.setSize(100);</code></td>
+            <td class="note">Sets the sprite’s size to 100% (normal size).</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_stretch_xy.svg" loading="lazy" alt="Set Stretch to XY" width="120"></td>
+            <td>
+<pre>sprite.setStretchX(100);
+sprite.setStretchY(50);</pre>
+            </td>
+            <td class="note">
+                Sets horizontal and vertical stretch independently.<br>
+                This comes from the TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples/Stretch.sb3">“Stretch”</a> extension and isn’t in vanilla Scratch.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="change_stretch_xy.svg" loading="lazy" alt="Change Stretch by XY" width="120"></td>
+            <td>
+<pre>sprite.changeStretchX(10);
+sprite.changeStretchY(5);</pre>
+            </td>
+            <td class="note">Increases horizontal stretch by 10 and vertical by 5. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_stretch_x.svg" loading="lazy" alt="Set Stretch X to 100" width="120"></td>
+            <td><code>sprite.setStretchX(100);</code></td>
+            <td class="note">Sets horizontal stretch to 100%. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_stretch_y.svg" loading="lazy" alt="Set Stretch Y to 100" width="120"></td>
+            <td><code>sprite.setStretchY(100);</code></td>
+            <td class="note">Sets vertical stretch to 100%. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_stretch_x.svg" loading="lazy" alt="Change Stretch X by 10" width="120"></td>
+            <td><code>sprite.changeStretchX(10);</code></td>
+            <td class="note">Increases horizontal stretch by 10. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_stretch_y.svg" loading="lazy" alt="Change Stretch Y by 10" width="120"></td>
+            <td><code>sprite.changeStretchY(10);</code></td>
+            <td class="note">Increases vertical stretch by 10. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_color.svg" loading="lazy" alt="Change Color Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.HUE_SHIFT, 45);</code></td>
+            <td class="note">
+                Scratch’s “color” effect uses a 0–200 scale; Sparkle uses degrees (0–360).<br>
+                To convert: <code>25 * (360 / 200) = 45</code>. So we use 45 here.<br>
+                <b>What’s going on?</b> We get the effects object (<code>getGraphicEffects()</code>) and tell it to increase the hue shift by 45 degrees.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="set_color.svg" loading="lazy" alt="Set Color Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.HUE_SHIFT, 0);</code></td>
+            <td class="note">Sets the hue shift to 0 degrees (no color shift).</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_fisheye.svg" loading="lazy" alt="Change Fisheye Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.BULGE, 25);</code></td>
+            <td class="note"><b>Note:</b> The BULGE effect doesn’t work properly yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_fisheye.svg" loading="lazy" alt="Set Fisheye Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.BULGE, 0);</code></td>
+            <td class="note"><b>Note:</b> BULGE effect isn’t working reliably yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_whirl.svg" loading="lazy" alt="Change Whirl Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.WHIRL, 25);</code></td>
+            <td class="note"><b>Note:</b> WHIRL effect isn’t working properly yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_whirl.svg" loading="lazy" alt="Set Whirl Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.WHIRL, 0);</code></td>
+            <td class="note"><b>Note:</b> WHIRL effect isn’t working reliably yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_pixelate.svg" loading="lazy" alt="Change Pixelate Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.PIXELATION, 25);</code></td>
+            <td class="note"><b>Note:</b> PIXELATION effect isn’t working properly yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_pixelate.svg" loading="lazy" alt="Set Pixelate Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.PIXELATION, 0);</code></td>
+            <td class="note"><b>Note:</b> PIXELATION effect isn’t working reliably yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_mosaic.svg" loading="lazy" alt="Change Mosaic Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.MOSAIC, 25);</code></td>
+            <td class="note"><b>Note:</b> MOSAIC effect isn’t working properly yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_mosaic.svg" loading="lazy" alt="Set Mosaic Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.MOSAIC, 0);</code></td>
+            <td class="note"><b>Note:</b> MOSAIC effect isn’t working reliably yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_brightness.svg" loading="lazy" alt="Change Brightness Effect by 25" width="120"></td>
+            <td><code>sprite.getGraphicEffects().increment(GraphicEffect.BRIGHTNESS, 25);</code></td>
+            <td class="note">Increases brightness by 25 units.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_brightness.svg" loading="lazy" alt="Set Brightness Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.BRIGHTNESS, 0);</code></td>
+            <td class="note">Resets brightness to normal (0).</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_ghost.svg" loading="lazy" alt="Change Ghost Effect by 25" width="120"></td><td><code>sprite.getGraphicEffects().increment(GraphicEffect.GHOST, 25);</code></td>
+            <td class="note">Increases the “ghost” (transparency) effect by 25 units. Higher values make the sprite more transparent.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_ghost.svg" loading="lazy" alt="Set Ghost Effect to 0" width="120"></td>
+            <td><code>sprite.getGraphicEffects().put(GraphicEffect.GHOST, 0);</code></td>
+            <td class="note">Resets the ghost effect to 0 (fully visible).</td>
+        </tr>
+                <tr>
+            <td><img src="clear_graphic.svg" loading="lazy" alt="Clear Graphic Effects" width="120"></td>
+            <td><code>sprite.getGraphicEffects().clear();</code></td>
+            <td class="note">Removes all graphic effects at once (color, ghost, brightness, etc.) and resets them to default.</td>
+        </tr>
+
+        <tr>
+            <td><img src="show.svg" loading="lazy" alt="Show" width="120"></td>
+            <td><code>sprite.setVisible(true);</code></td>
+            <td class="note">Makes the sprite visible on screen. <code>true</code> is a boolean value meaning "yes".</td>
+        </tr>
+
+        <tr>
+            <td><img src="hide.svg" loading="lazy" alt="Hide" width="120"></td>
+            <td><code>sprite.setVisible(false);</code></td>
+            <td class="note">Hides the sprite. <code>false</code> is a boolean value meaning "no".</td>
+        </tr>
+
+        <tr>
+            <td><img src="goto_front.svg" loading="lazy" alt="Go to Front Layer" width="120"></td>
+            <td><code>stage.moveToFrontLayer(new SpriteID("spriteId", cloneId));</code></td>
+            <td class="note">
+                Layers are managed by the <code>Stage</code>, not the sprite itself.<br>
+                <b>What's going on?</b> We create a <code>SpriteID</code> (a pair of sprite name + clone ID) to tell the stage which sprite we mean. The clone ID is an <code>int</code> — the original sprite's clone ID is always <code>0</code>.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="goto_back.svg" loading="lazy" alt="Go to Back Layer" width="120"></td>
+            <td><code>stage.moveToBackLayer(new SpriteID("spriteId", cloneId));</code></td>
+            <td class="note">Sends the sprite to the very back layer. Same idea as above — the stage handles it.</td>
+        </tr>
+
+        <tr>
+            <td><img src="go_forward.svg" loading="lazy" alt="Go Forward 1 Layer" width="120"></td>
+            <td><code>stage.moveByLayers(new SpriteID("spriteId", cloneId), 1);</code></td>
+            <td class="note">Moves the sprite forward (toward the viewer) by 1 layer. Use a larger number to jump more layers.</td>
+        </tr>
+
+        <tr>
+            <td><img src="go_backward.svg" loading="lazy" alt="Go Backward 1 Layer" width="120"></td>
+            <td><code>stage.moveByLayers(new SpriteID("spriteId", cloneId), -1);</code></td>
+            <td class="note">Moves the sprite backward (away from the viewer) by 1 layer. Negative numbers go backward.</td>
+        </tr>
+
+        <tr>
+            <td><img src="costume_number.svg" loading="lazy" alt="Costume Number" width="120"></td>
+            <td><code>sprite.getCostumeIndex()</code></td>
+            <td class="note">Returns the current costume's number (index). This is an expression, not a statement.</td>
+        </tr>
+
+        <tr>
+            <td><img src="costume_name.svg" loading="lazy" alt="Costume Name" width="120"></td>
+            <td><code>sprite.getCostumeName()</code></td>
+            <td class="note">Returns the current costume's name as text (a <code>String</code>).</td>
+        </tr>
+
+        <tr>
+            <td><img src="backdrop_number.svg" loading="lazy" alt="Backdrop Number" width="120"></td>
+            <td><code>stage.getBackdropIndex()</code></td>
+            <td class="note">Returns the current backdrop's number. Note that backdrops belong to a <code>Stage</code> instance, not a sprite.</td>
+        </tr>
+
+        <tr>
+            <td><img src="backdrop_name.svg" loading="lazy" alt="Backdrop Name" width="120"></td>
+            <td><code>stage.getBackdropName()</code></td>
+            <td class="note">Returns the current backdrop's name as text.</td>
+        </tr>
+
+        <tr>
+            <td><img src="get_size.svg" loading="lazy" alt="Size" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">
+                In Sparkle, a sprite's size isn't stored as a single number — it can have separate X stretch and Y stretch. If you're sure both are always equal, you can query either <code>sprite.getStretchX()</code> or <code>sprite.getStretchY()</code> instead.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="x_stretch.svg" loading="lazy" alt="X Stretch" width="120"></td>
+            <td><code>sprite.getStretchX()</code></td>
+            <td class="note">Returns the horizontal stretch value. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension., not in vanilla Scratch.</td>
+        </tr>
+
+        <tr>
+            <td><img src="y_stretch.svg" loading="lazy" alt="Y Stretch" width="120"></td>
+            <td><code>sprite.getStretchY()</code></td>
+            <td class="note">Returns the vertical stretch value. From TurboWarp <a href="https://mirror.turbowarp.xyz/editor?project_url=https://extensions.turbowarp.org/samples%2FStretch.sb3">Stretch</a> extension., not in vanilla Scratch.</td>
+        </tr>
+
+        <!-- Sound -->
+        <tr><td colspan="3"><h2>Sound</h2></td></tr>
+
+        <tr>
+            <td><img src="play_until_done.svg" loading="lazy" alt="Play Sound meow Until Done" width="120"></td>
+            <td><code>sprite.startSound("meow", true);</code></td>
+            <td class="note">
+                Plays the sound "meow" and waits for it to finish before continuing.<br>
+                The second argument <code>true</code> means "wait until done". Pass <code>false</code> (or omit it) to keep running your code while the sound plays.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="start_sound.svg" loading="lazy" alt="Start Sound meow" width="120"></td>
+            <td><code>sprite.startSound("meow");</code></td>
+            <td class="note">Starts playing "meow" without waiting for it to finish — your code keeps running immediately.</td>
+        </tr>
+
+        <tr>
+            <td><img src="stop_sounds.svg" loading="lazy" alt="Stop All Sounds" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">
+                Scratch's "stop all sounds" is a blanket stop. In Sparkle, <code>startSound(...)</code> returns a sound ID — you collect those IDs and stop individual sounds yourself. This gives you more control but requires a bit more code.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="change_pitch.svg" loading="lazy" alt="Change Pitch Effect by 10" width="120"></td>
+            <td><code>sprite.getSoundEffects().increment(SoundEffect.PITCH, 10);</code></td>
+            <td class="note">
+                Increases the pitch effect by 10.<br>
+                <b>What's going on?</b> <code>getSoundEffects()</code> returns the sound-effects object for this sprite. Then we call <code>increment</code> on it to change one specific effect.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="change_pan.svg" loading="lazy" alt="Change Pan Left/Right Effect by 10" width="120"></td>
+            <td><code>sprite.getSoundEffects().increment(SoundEffect.PAN, 10);</code></td>
+            <td class="note">Shifts the sound's left/right balance by 10. Positive values pan right, negative pan left.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_pitch.svg" loading="lazy" alt="Set Pitch Effect to 100" width="120"></td>
+            <td><code>sprite.getSoundEffects().put(SoundEffect.PITCH, 100);</code></td>
+            <td class="note">Sets pitch to an exact value of 100. Use <code>put</code> to set (not change) an effect.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_pan.svg" loading="lazy" alt="Set Pan Left/Right Effect to 100" width="120"></td>
+            <td><code>sprite.getSoundEffects().put(SoundEffect.PAN, 100);</code></td>
+            <td class="note">Sets the pan to an exact value of 100.</td>
+        </tr>
+
+        <tr>
+            <td><img src="change_volume.svg" loading="lazy" alt="Change Volume by -10" width="120"></td>
+            <td><code>sprite.getSoundEffects().decrement(SoundEffect.VOLUME, 10);</code></td>
+            <td class="note">
+                Lowers the volume by 10. <code>decrement</code> is the opposite of <code>increment</code> — it subtracts.<br>
+                <b>Note:</b> In Sparkle, <code>VOLUME</code> is just another sound effect, not a separate property. This is different from Scratch.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="set_volume.svg" loading="lazy" alt="Set Volume to 100%" width="120"></td>
+            <td><code>sprite.getSoundEffects().put(SoundEffect.VOLUME, 100);</code></td>
+            <td class="note">Sets the volume to 100. Since volume is a sound effect, we use <code>put</code> just like other effects.</td>
+        </tr>
+
+        <tr>
+            <td><img src="clear_sound.svg" loading="lazy" alt="Clear Sound Effects" width="120"></td>
+            <td><code>sprite.getSoundEffects().clear();</code></td>
+            <td class="note">
+                Resets all sound effects to default.<br>
+                <b>Important:</b> This <i>also</i> resets volume, since volume is a sound effect in Sparkle!
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="get_volume.svg" loading="lazy" alt="Volume" width="120"></td>
+            <td><code>sprite.getSoundEffects().getDouble(SoundEffect.VOLUME)</code></td>
+            <td class="note">
+                Returns the current volume as a number (<code>double</code>).<br>
+                This is an expression — use it inside something else, not as a standalone statement.
+            </td>
+        </tr>
+
+        <!-- Events -->
+        <tr><td colspan="3"><h2>Events</h2></td></tr>
+
+        <tr>
+            <td><img src="on_flag_clicked.svg" loading="lazy" alt="When Green Flag Clicked" width="120"></td>
+            <td>
+<pre>Global.when(StartEvent.class, e -&gt; {
+    // your code...
+});</pre>
+            </td>
+            <td class="note">
+                Runs your code when the game starts (like clicking the green flag in Scratch).<br>
+                <b>What's going on?</b> <code>Global.when(...)</code> registers an event handler. It says: "When a <code>StartEvent</code> happens, run this code." The <code>e -&gt; { ... }</code> part is a lambda — a short way to pass code as an argument in Java.<br>
+                This is not the only way to register handlers — see the <code>Global</code> and <code>EventDispatcher</code> classes for more options.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="on_key_pressed.svg" loading="lazy" alt="When Some Key Pressed" width="120"></td>
+            <td>
+<pre>Global.when(KeyboardEvent.KeyPressedEvent.class, e -&gt; {
+    if (e.key() == Key.SOME_KEY) {
+        // your code...
+    }
+});</pre>
+            </td>
+            <td class="note">
+                Runs code when a key is pressed.<br>
+                Replace <code>Key.SOME_KEY</code> with the actual key you want (e.g., <code>Key.SPACE</code>, <code>Key.UP</code>, etc.). The <code>if</code> inside checks which key was pressed — one handler fires for any key, so you need to filter.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="on_sprite_clicked.svg" loading="lazy" alt="When This Sprite Clicked" width="120"></td>
+            <td>
+<pre>Global.when(MouseEvent.MouseClickedEvent.class, e -&gt; {
+    if (GraphicsUtils.getTargetObject(e) instanceof SpriteID(String thatId, int _) &amp;&amp; "spriteId".equals(thatId)) {
+        // your code...
+    }
+});</pre>
+            </td>
+            <td class="note">
+                Runs code when the user clicks this sprite.<br>
+                <b>What's going on?</b> When a click happens, we check whether the clicked object is a sprite with our ID. The <code>instanceof SpriteID(String thatId, int _)</code> part is Java's pattern matching — it checks the type and extracts the ID at the same time. The <code>_</code> means "we don't care about the clone ID here."
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="on_stage_clicked.svg" loading="lazy" alt="When Stage Clicked" width="120"></td>
+            <td>
+<pre>Global.when(MouseEvent.MouseClickedEvent.class, e -&gt; {
+    if (GraphicsUtils.getTargetObject(e) == null) {
+        // your code...
+    }
+});</pre>
+            </td>
+            <td class="note">
+                Runs code when the user clicks the stage background (not a sprite).<br>
+                When <code>getTargetObject(e)</code> returns <code>null</code>, it means no sprite was clicked — so it must have been the stage.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="on_backdrop.svg" loading="lazy" alt="When Backdrop Switches to backdrop1" width="120"></td>
+            <td>
+<pre>Global.when(BackdropChangeEvent.After.class, e -&gt; {
+    if (e.newBackdropId() == stage.getAssets().texturesIndexesByName().getInt("backdrop1")) {
+        // your code...
+    }
+});</pre>
+            </td>
+            <td class="note">
+                Runs code after the backdrop changes to a specific one.<br>
+                The code checks whether the new backdrop's ID matches the one we want ("backdrop1"). It looks up the backdrop by name and compares its numeric ID.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="on_loudness.svg" loading="lazy" alt="When Loudness &gt; 10" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">Microphone access (loudness sensing) is planned for a separate extension module — it won't be in the core framework.</td>
+        </tr>
+
+        <tr>
+            <td><img src="on_timer.svg" loading="lazy" alt="When Timer &gt; 10" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">Sparkle doesn't have a built-in timer that auto-starts. You can create one yourself using the <code>Stopwatch</code> classes.</td>
+        </tr>
+
+        <tr>
+            <td><img src="on_message.svg" loading="lazy" alt="When I receive message1" width="120"></td>
+            <td>
+<pre>Global.when(MessageEvent.class, e -&gt; {
+    if (e.messageId().equals("message1")) {
+        // your code...
+    }
+});</pre>
+            </td>
+            <td class="note">
+                Runs code when a broadcast message is received.<br>
+                The <code>if</code> check filters by message name — one handler fires for any message, so you need to check which one arrived.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="fire_message.svg" loading="lazy" alt="Broadcast message1" width="120"></td>
+            <td><code>Global.fire(new MessageEvent("message1"));</code></td>
+            <td class="note">Sends a message to all listeners. Code continues immediately — it doesn't wait for receivers to finish.</td>
+        </tr>
+
+        <tr>
+            <td><img src="fire_message_and_wait.svg" loading="lazy" alt="Broadcast message1 and Wait" width="120"></td>
+            <td><code>Global.fireAndWait(new MessageEvent("message1"));</code></td>
+            <td class="note">Sends a message and waits until all receivers finish before continuing. Use this when you need receivers to complete first.</td>
+        </tr>
+
+        <!-- Control -->
+        <tr><td colspan="3"><h2>Control</h2></td></tr>
+
+        <tr>
+            <td><img src="wait.svg" loading="lazy" alt="Wait 1 Second" width="120"></td>
+            <td><code>WaitUtils.waitFor(1000);</code></td>
+            <td class="note">
+                Pauses your code for 1000 milliseconds (1 second).<br>
+                <b>Remember:</b> Always specify time in milliseconds! 1 second = 1000 ms, 0.5 seconds = 500 ms, etc.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="repeat.svg" loading="lazy" alt="Repeat 10 times" width="120"></td>
+            <td>
+<pre>for (int i = 0; i &lt; 10; i++) {
+    // your code...
+}</pre>
+            </td>
+            <td class="note">
+                This is a standard Java <code>for</code> loop — it runs the code inside <code>{ }</code> exactly 10 times.<br>
+                <b>Beginner tip:</b> <code>int i = 0</code> creates a counter, <code>i &lt; 10</code> means "keep going while i is less than 10", and <code>i++</code> adds 1 to i each time. Change <code>10</code> to however many times you need.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="forever.svg" loading="lazy" alt="Forever" width="120"></td>
+            <td>
+<pre>while (true) {
+    // your code...
+}</pre>
+            </td>
+            <td class="note">
+                A <code>while (true)</code> loop runs forever because <code>true</code> is always true.<br>
+                <b>Note:</b> The actual implementation depends on context. For example, for a game loop, you should use a <code>TickEvent</code> handler instead — it's controllable by the framework.</td>
+        </tr>
+
+        <tr>
+            <td><img src="if.svg" loading="lazy" alt="If Then" width="120"></td>
+            <td>
+<pre>if (something) {
+    // your code...
+}</pre>
+            </td>
+            <td class="note">
+                Runs the code only if <code>something</code> is true.<br>
+                Replace <code>something</code> with a condition, e.g., <code>sprite.getX() &gt; 100</code> or <code>sprite.getCostumeName().equals("jump")</code>.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="if_else.svg" loading="lazy" alt="If Then Else" width="120"></td>
+            <td>
+<pre>if (something) {
+    // code if true...
+} else {
+    // code if false...
+}</pre>
+            </td>
+            <td class="note">Runs one block if the condition is true, and a different block if it's false.</td>
+        </tr>
+
+        <tr>
+            <td><img src="wait_until.svg" loading="lazy" alt="Wait Until" width="120"></td>
+            <td><code>WaitUtils.waitUntil(() -&gt; something);</code></td>
+            <td class="note">
+                Keeps waiting until <code>something</code> becomes true, then continues.<br>
+                <b>What's the <code>() -&gt;</code> part?</b> It's a lambda — a short function that gets re-evaluated each check. If you just wrote <code>WaitUtils.waitUntil(something)</code> without the lambda, Java would evaluate <code>something</code> only once. If it was <code>false</code> at that moment, your program would freeze forever.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="wait_or_until.svg" loading="lazy" alt="Wait 1 Second or Until" width="120"></td>
+            <td><code>WaitUtils.waitForOrUntil(() -&gt; something, 1000);</code></td>
+            <td class="note">
+                Waits until either the condition becomes true OR 1000 ms passes — whichever comes first.<br>
+                This block comes from <a href="https://penguinmod.com/">PenguinMod</a> and is not available in vanilla Scratch.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="repeat_until.svg" loading="lazy" alt="Repeat Until" width="120"></td>
+            <td>
+<pre>while (!something) {
+    // your code...
+}</pre>
+            </td>
+            <td class="note">
+                Keeps running the code while the condition is <i>not</i> true yet.<br>
+                The <code>!</code> (exclamation mark) before the expression means "not" — it flips <code>true</code> to <code>false</code> and vice versa. So <code>while (!something)</code> means "keep looping while something is false."
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="while.svg" loading="lazy" alt="While" width="120"></td>
+            <td>
+<pre>while (something) {
+    // your code...
+}</pre>
+            </td>
+            <td class="note">
+                Keeps looping while the condition is true.<br>
+                This block isn't in vanilla Scratch but works in Scratch mods like TurboWarp.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="stop_all.svg" loading="lazy" alt="Stop All" width="120"></td>
+            <td>
+<pre>stage.stop();
+return;</pre>
+            </td>
+            <td class="note">
+                Stopping depends on context. To stop a specific <code>Stage</code>: <code>stage.stop();</code><br>
+                To stop the entire program (closes all windows): <code>System.exit(0);</code><br>
+                The <code>return;</code> exits the current method so no more code runs after stopping.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="stop_this.svg" loading="lazy" alt="Stop This Script" width="120"></td>
+            <td><code>return;</code></td>
+            <td class="note">
+                Exits the current method immediately — no more code in this method runs.<br>
+                <b>Beginner tip:</b> In Java, <code>return</code> means "leave this method now." It's the closest equivalent to stopping a single script.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="stop_other.svg" loading="lazy" alt="Stop Other Scripts in Sprite" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">In Sparkle, sprites don't store code, and managing multiple running scripts is up to your application. This Scratch block doesn't have a direct equivalent.</td>
+        </tr>
+
+        <tr>
+            <td><img src="on_clone.svg" loading="lazy" alt="When I Start as a Clone" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">
+                In Sparkle, sprites don't hold code and no event fires when a clone is created. Instead, when you create a clone, you get the clone's <code>Sprite</code> instance back — you can customize it right there.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="create_clone.svg" loading="lazy" alt="Create Clone" width="120"></td>
+            <td>
+<pre>int cloneId = stage.createClone("spriteId");
+Sprite cloneSprite = stage.getSprite("spriteId", cloneId);</pre>
+            </td>
+            <td class="note">
+                Creates a clone and gives you access to it.<br>
+                Line 1: creates the clone, returns its clone ID.<br>
+                Line 2: gets the <code>Sprite</code> object for that clone so you can manipulate it.<br>
+                <b>Note:</b> The clone starts on the front layer in Sparkle (in Scratch it starts at the back).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="delete_all_clones.svg" loading="lazy" alt="Delete Clones" width="120"></td>
+            <td><code>stage.deleteAllClones("spriteId");</code></td>
+            <td class="note">Deletes all clones of the specified sprite. From <a href="https://penguinmod.com/">PenguinMod</a>, not in vanilla Scratch.</td>
+        </tr>
+
+        <tr>
+            <td><img src="delete_clone.svg" loading="lazy" alt="Delete This Clone" width="120"></td>
+            <td><code>stage.deleteClone("spriteId", cloneId);</code></td>
+            <td class="note">Deletes one specific clone, identified by its sprite ID and clone ID.</td>
+        </tr>
+
+        <tr>
+            <td><img src="is_clone.svg" loading="lazy" alt="Is Clone?" width="120"></td>
+            <td><code>cloneId != 0</code></td>
+            <td class="note">
+                <code>!=</code> means "not equal to". The original sprite has clone ID <code>0</code>, so if the clone ID is not 0, it's a clone. From <a href="https://penguinmod.com/">PenguinMod</a>, not in vanilla Scratch.
+            </td>
+        </tr>
+
+        <!-- Sensing -->
+        <tr><td colspan="3"><h2>Sensing</h2></td></tr>
+
+        <tr>
+            <td><img src="touching_mouse.svg" loading="lazy" alt="Touching Mouse Pointer?" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Mouse pointer collision detection isn't available in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="touching_edge.svg" loading="lazy" alt="Touching Edge?" width="120"></td>
+            <td>Too complex</td>
+            <td class="note" rowspan="2">Edge and sprite collision detection is possible in Sparkle, but it requires too much setup code to show here. Working on simplifying it!</td>
+        </tr>
+
+        <tr>
+            <td><img src="touching_other.svg" loading="lazy" alt="Touching Other Sprite?" width="120"></td>
+            <td>Too complex</td>
+        </tr>
+
+        <tr>
+            <td><img src="touching_color.svg" loading="lazy" alt="Touching Color?" width="120"></td>
+            <td>Not possible yet</td>
+            <td class="note" rowspan="2">Can't read color data from the screen yet — this feature is still being worked on.</td>
+        </tr>
+
+        <tr>
+            <td><img src="color_touching_color.svg" loading="lazy" alt="Color Is Touching Color?" width="120"></td>
+            <td>Not possible yet</td>
+        </tr>
+
+        <tr>
+            <td><img src="distance_mouse.svg" loading="lazy" alt="Distance to Mouse Pointer" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Mouse position isn't available in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="distance_other.svg" loading="lazy" alt="Distance to Other Sprite" width="120"></td>
+            <td><code>Math.hypot(sprite.getX() - otherSprite.getX(), sprite.getY() - otherSprite.getY())</code></td>
+            <td class="note">
+                Calculates the straight-line distance between two sprites.<br>
+                <b>What's going on?</b> <code>Math.hypot(a, b)</code> computes <code>sqrt(a*a + b*b)</code> — the Pythagorean theorem. Here, <code>a</code> is the difference in X and <code>b</code> is the difference in Y.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="ask_and_wait.svg" loading="lazy" alt="Ask and Wait" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note" rowspan="2">Text input ("ask and wait") is planned for a UI extension module — it won't be in the core framework.</td>
+        </tr>
+
+        <tr>
+            <td><img src="answer.svg" loading="lazy" alt="Answer" width="120"></td>
+            <td>No direct equivalent</td>
+        </tr>
+
+        <tr>
+            <td><img src="get_key.svg" loading="lazy" alt="Is Key Pressed?" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Checking whether a key is currently held down isn't available in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="get_mouse_button.svg" loading="lazy" alt="Mouse Down?" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Checking whether the mouse button is held down isn't available yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="mouse_x.svg" loading="lazy" alt="Mouse X" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Mouse position isn't exposed in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="mouse_y.svg" loading="lazy" alt="Mouse Y" width="120"></td>
+            <td>No direct equivalent yet</td>
+            <td class="note">Mouse position isn't exposed in the core API yet.</td>
+        </tr>
+
+        <tr>
+            <td><img src="set_draggable.svg" loading="lazy" alt="Set Drag Mode: Draggable" width="120"></td>
+            <td rowspan="2">No direct equivalent</td>
+            <td class="note" rowspan="2">
+                Scratch's dragging system doesn't let you customize how the sprite follows the cursor. In Sparkle, if you need dragging, you implement it yourself in your app. Most applications don't need it.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="set_not_draggable.svg" loading="lazy" alt="Set Drag Mode: Not Draggable" width="120"></td>
+        </tr>
+
+        <tr>
+            <td><img src="loudness.svg" loading="lazy" alt="Loudness" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">Microphone access is planned for a separate extension module, not the core.</td>
+        </tr>
+
+        <tr>
+            <td><img src="timer.svg" loading="lazy" alt="Timer" width="120"></td>
+            <td rowspan="2">No direct equivalent</td>
+            <td class="note" rowspan="2">
+                Sparkle doesn't start a timer automatically like Scratch does. You can create your own using the <code>Stopwatch</code> classes when you need timing.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="reset_timer.svg" loading="lazy" alt="Reset Timer" width="120"></td>
+        </tr>
+
+        <tr>
+            <td><img src="backdrop_num_of_stage.svg" loading="lazy" alt="Backdrop Number of Stage" width="120"></td>
+            <td><code>stage.getBackdropIndex()</code></td>
+            <td class="note">Returns the current backdrop's number on the stage.</td>
+        </tr>
+
+        <tr>
+            <td><img src="backdrop_name_of_stage.svg" loading="lazy" alt="Backdrop Name of Stage" width="120"></td>
+            <td><code>stage.getBackdropName()</code></td>
+            <td class="note">Returns the current backdrop's name as text.</td>
+        </tr>
+
+        <tr>
+            <td><img src="volume_of_stage.svg" loading="lazy" alt="Volume of Stage" width="120"></td>
+            <td><code>100</code></td>
+            <td class="note">The stage doesn't have sound effects (at least for now), so its volume is always 100.</td>
+        </tr>
+
+        <tr>
+            <td><img src="variable_of_stage.svg" loading="lazy" alt="Variable of Stage" width="120"></td>
+            <td><code>stage.getVariable("my variable").getValue()</code></td>
+            <td class="note">
+                Gets the value of a variable stored on the stage. You might want to use a different method than <code>getValue()</code> if it's a primitive variable (e.g., <code>getDoubleValue()</code>, <code>getIntValue()</code>).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="x_of_sprite.svg" loading="lazy" alt="X Position of Sprite" width="120"></td>
+            <td><code>sprite.getX()</code></td>
+            <td class="note">Returns the sprite's X coordinate.</td>
+        </tr>
+
+        <tr>
+            <td><img src="y_of_sprite.svg" loading="lazy" alt="Y Position of Sprite" width="120"></td>
+            <td><code>sprite.getY()</code></td>
+            <td class="note">Returns the sprite's Y coordinate.</td>
+        </tr>
+
+        <tr>
+            <td><img src="dir_of_sprite.svg" loading="lazy" alt="Direction of Sprite" width="120"></td>
+            <td><code>sprite.getDirection()</code></td>
+            <td class="note">Returns the sprite's current direction in degrees.</td>
+        </tr>
+
+        <tr>
+            <td><img src="costume_num_of_sprite.svg" loading="lazy" alt="Costume Number of Sprite" width="120"></td>
+            <td><code>sprite.getCostumeIndex()</code></td>
+            <td class="note">Returns the sprite's current costume number.</td>
+        </tr>
+
+        <tr>
+            <td><img src="costume_name_of_sprite.svg" loading="lazy" alt="Costume Name of Sprite" width="120"></td>
+            <td><code>sprite.getCostumeName()</code></td>
+            <td class="note">Returns the sprite's current costume name as text.</td>
+        </tr>
+
+        <tr>
+            <td><img src="size_of_sprite.svg" loading="lazy" alt="Size of Sprite" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">Same as "Size" above — Sparkle uses separate X/Y stretch instead of a single size value.</td>
+        </tr>
+
+        <tr>
+            <td><img src="volume_of_sprite.svg" loading="lazy" alt="Volume of Sprite" width="120"></td>
+            <td><code>sprite.getSoundEffects().getDouble(SoundEffect.VOLUME)</code></td>
+            <td class="note">Returns the sprite's volume. Since volume is a sound effect in Sparkle, we read it through <code>getSoundEffects()</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="variable_of_sprite.svg" loading="lazy" alt="Variable of Sprite" width="120"></td>
+            <td><code>sprite.getVariable("private variable").getValue()</code></td>
+            <td class="note">Gets a variable stored on this sprite. As with stage variables, you might use a different method than <code>getValue()</code> for primitive types.</td>
+        </tr>
+
+        <tr>
+            <td><img src="year.svg" loading="lazy" alt="Current Year" width="120"></td>
+            <td><code>LocalDate.now().getYear()</code></td>
+            <td class="note">
+                Returns the current year (e.g., 2026). These use Java's built-in <code>java.time</code> package. There may be better options depending on your needs — check the <code>java.time</code> documentation.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="month.svg" loading="lazy" alt="Current Month" width="120"></td>
+            <td><code>LocalDate.now().getMonthValue()</code></td>
+            <td class="note">Returns the current month as a number (1–12).</td>
+        </tr>
+
+        <tr>
+            <td><img src="date.svg" loading="lazy" alt="Current Date" width="120"></td>
+            <td><code>LocalDate.now().getDayOfMonth()</code></td>
+            <td class="note">Returns the current day of the month (1–31).</td>
+        </tr>
+
+        <tr>
+            <td><img src="day_of_week.svg" loading="lazy" alt="Current Day of Week" width="120"></td>
+            <td><code>Math.floorMod(LocalDate.now().toEpochDay() + 5, 7)</code></td>
+            <td class="note">
+                Returns the day of the week as a number (0 = Sunday, 1 = Monday, etc.).<br>
+                <b>What's going on?</b> <code>toEpochDay()</code> counts days since 1970-01-01 (a Thursday). Adding 5 and taking <code>floorMod</code> by 7 shifts it so Sunday = 0.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="hour.svg" loading="lazy" alt="Current Hour" width="120"></td>
+            <td><code>LocalTime.now().getHour()</code></td>
+            <td class="note">Returns the current hour (0–23).</td>
+        </tr>
+
+        <tr>
+            <td><img src="minute.svg" loading="lazy" alt="Current Minute" width="120"></td>
+            <td><code>LocalTime.now().getMinute()</code></td>
+            <td class="note">Returns the current minute (0–59).</td>
+        </tr>
+
+        <tr>
+            <td><img src="second.svg" loading="lazy" alt="Current Second" width="120"></td>
+            <td><code>LocalTime.now().getSecond()</code></td>
+            <td class="note">Returns the current second (0–59).</td>
+        </tr>
+
+        <tr>
+            <td><img src="days_since_2000.svg" loading="lazy" alt="Days Since 2000" width="120"></td>
+            <td><code>Duration.between(LocalDateTime.of(2000, 1, 1, 0, 0), LocalDateTime.now()).toNanos() / 86400000000000d</code></td>
+            <td class="note">
+                Calculates the number of days since January 1, 2000.<br>
+                <b>Tip:</b> In Scratch this is often used to measure elapsed time. In Java, it's usually better to use the <code>Duration</code> class directly for measuring time spans — no need to convert to "days since 2000" first.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="username.svg" loading="lazy" alt="Username" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note">Sparkle is a graphics framework, not an account system. If your app needs usernames, you implement that yourself.</td>
+        </tr>
+
+        <!-- Operators -->
+        <tr><td colspan="3"><h2>Operators</h2></td></tr>
+
+        <tr>
+            <td><img src="plus.svg" loading="lazy" alt="Plus" width="120"></td>
+            <td><code>expr1 + expr2</code></td>
+            <td class="note">Adds two numbers. Replace <code>expr1</code> and <code>expr2</code> with your numeric expressions.</td>
+        </tr>
+
+        <tr>
+            <td><img src="minus.svg" loading="lazy" alt="Minus" width="120"></td>
+            <td><code>expr1 - expr2</code></td>
+            <td class="note">Subtracts the second number from the first.</td>
+        </tr>
+
+        <tr>
+            <td><img src="times.svg" loading="lazy" alt="Times" width="120"></td>
+            <td><code>expr1 * expr2</code></td>
+            <td class="note">Multiplies two numbers. In Java, the multiplication sign is <code>*</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="over.svg" loading="lazy" alt="Over (division)" width="120"></td>
+            <td><code>(double) expr1 / expr2</code></td>
+            <td class="note">
+                Divides two numbers.<br>
+                <b>Why <code>(double)</code>?</b> In Java, dividing two integers gives you a whole-number result (e.g., <code>7 / 2</code> gives <code>3</code>, not <code>3.5</code>). Adding <code>(double)</code> in front forces "real number" division so you get <code>3.5</code>. Remove it if you actually want integer division.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="random.svg" loading="lazy" alt="Pick Random" width="120"></td>
+            <td><code>Constants.RANDOM.nextDouble(expr1, expr2)</code></td>
+            <td class="note">Picks a random number between <code>expr1</code> and <code>expr2</code>. The result includes both endpoints.</td>
+        </tr>
+
+        <tr>
+            <td><img src="more.svg" loading="lazy" alt="More Than" width="120"></td>
+            <td><code>expr1 &gt; expr2</code></td>
+            <td class="note">Returns <code>true</code> if the first value is greater than the second, <code>false</code> otherwise.</td>
+        </tr>
+
+        <tr>
+            <td><img src="less.svg" loading="lazy" alt="Less Than" width="120"></td>
+            <td><code>expr1 &lt; expr2</code></td>
+            <td class="note">Returns <code>true</code> if the first value is less than the second.</td>
+        </tr>
+
+        <tr>
+            <td><img src="equals.svg" loading="lazy" alt="Equals" width="120"></td>
+            <td><code>expr1 == expr2</code></td>
+            <td class="note">
+                Returns <code>true</code> if both values are equal.<br>
+                <b>Important:</b> <code>==</code> checks if two things are the same object in memory. For comparing text or other objects by their content, use <code>.equals()</code> instead (e.g., <code>sprite.getCostumeName().equals("jump")</code>).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="and.svg" loading="lazy" alt="And" width="120"></td>
+            <td><code>expr1 &amp;&amp; expr2</code></td>
+            <td class="note">
+                Returns <code>true</code> only if <i>both</i> conditions are true. <code>&amp;&amp;</code> is Java's "and" operator. Both expressions must be boolean (true/false).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="or.svg" loading="lazy" alt="Or" width="120"></td>
+            <td><code>expr1 || expr2</code></td>
+            <td class="note">Returns <code>true</code> if <i>either</i> condition is true. <code>||</code> is Java's "or" operator.</td>
+        </tr>
+
+        <tr>
+            <td><img src="not.svg" loading="lazy" alt="Not" width="120"></td>
+            <td><code>!expr</code></td>
+            <td class="note">
+                Flips a boolean value: <code>true</code> becomes <code>false</code>, <code>false</code> becomes <code>true</code>. The <code>!</code> is Java's "not" operator.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="join.svg" loading="lazy" alt="Join" width="120"></td>
+            <td><code>String.valueOf(expr1) + String.valueOf(expr2)</code></td>
+            <td class="note">
+                Joins two values together as text. <code>String.valueOf(...)</code> converts anything to text first, then <code>+</code> concatenates them.<br>
+                Here, <code>expr1</code> and <code>expr2</code> can be of any type (numbers, text, etc.).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="letter_of.svg" loading="lazy" alt="Letter of" width="120"></td>
+            <td><code>String.valueOf(expr2).charAt(expr1)</code></td>
+            <td class="note">
+                Gets a single character at position <code>expr1</code> from the text <code>expr2</code>.<br>
+                <b>Remember:</b> Java counts from 0, so the first character is at index 0 (unlike Scratch, where it's 1).<br>
+                <b>⚠️ Important for emojis &amp; special symbols:</b> This method only works reliably for basic letters and numbers. Some symbols (like many emojis) are “double-width” internally, so <code>charAt</code> might give you half a symbol or the wrong character.<br>
+    If you need to safely handle those, use: <code>Character.toString(String.valueOf(expr2).codePointAt(expr1))</code>. <b>Note:</b> this returns a <code>String</code> (text), not a <code>char</code> (single character), so treat it as text in your code.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="length.svg" loading="lazy" alt="Length of" width="120"></td>
+            <td><code>String.valueOf(expr).length()</code></td>
+            <td class="note">Returns the number of characters in the text. <code>expr</code> can be any type — it gets converted to text first.</td>
+        </tr>
+
+        <tr>
+            <td><img src="contains.svg" loading="lazy" alt="Contains?" width="120"></td>
+            <td><code>String.valueOf(expr1).contains(String.valueOf(expr2))</code></td>
+            <td class="note">
+                Returns <code>true</code> if <code>expr1</code> (as text) contains <code>expr2</code> (as text) somewhere inside it.<br>
+                Both can be any type — they're converted to text first.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="modulo.svg" loading="lazy" alt="Mod" width="120"></td>
+            <td><code>expr1 % expr2</code></td>
+            <td class="note">
+                Returns the remainder of dividing <code>expr1</code> by <code>expr2</code>. The <code>%</code> symbol is Java's "modulo" operator.<br>
+                Example: <code>10 % 3</code> gives <code>1</code> (because 10 ÷ 3 = 3 with remainder 1).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="round.svg" loading="lazy" alt="Round" width="120"></td>
+            <td><code>Math.round(expr)</code></td>
+            <td class="note">Rounds a number to the nearest whole number. E.g., <code>Math.round(3.7)</code> gives <code>4</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="abs.svg" loading="lazy" alt="Abs Of" width="120"></td>
+            <td><code>Math.abs(expr)</code></td>
+            <td class="note">Returns the absolute (positive) value. <code>Math.abs(-5)</code> gives <code>5</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="floor.svg" loading="lazy" alt="Floor Of" width="120"></td>
+            <td><code>Math.floor(expr)</code></td>
+            <td class="note">Rounds down to the nearest whole number. <code>Math.floor(3.9)</code> gives <code>3.0</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="ceiling.svg" loading="lazy" alt="Ceiling Of" width="120"></td>
+            <td><code>Math.ceil(expr)</code></td>
+            <td class="note">Rounds up to the nearest whole number. <code>Math.ceil(3.1)</code> gives <code>4.0</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="sqrt.svg" loading="lazy" alt="Sqrt Of" width="120"></td>
+            <td><code>Math.sqrt(expr)</code></td>
+            <td class="note">Returns the square root. <code>Math.sqrt(9)</code> gives <code>3.0</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="sin.svg" loading="lazy" alt="Sin Of" width="120"></td>
+            <td><code>Math.sin(expr)</code></td>
+            <td class="note">Returns the sine. <b>Note:</b> Java uses radians, not degrees! To convert degrees to radians: multiply by <code>Math.PI / 180</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="cos.svg" loading="lazy" alt="Cos Of" width="120"></td>
+            <td><code>Math.cos(expr)</code></td>
+            <td class="note">Returns the cosine. Same as above — Java uses radians.</td>
+        </tr>
+
+        <tr>
+            <td><img src="tan.svg" loading="lazy" alt="Tan Of" width="120"></td>
+            <td><code>Math.tan(expr)</code></td>
+            <td class="note">Returns the tangent. Also in radians.</td>
+        </tr>
+
+        <tr>
+            <td><img src="asin.svg" loading="lazy" alt="Asin Of" width="120"></td>
+            <td><code>Math.asin(expr)</code></td>
+            <td class="note">Returns the arc sine (inverse of sine). Result is in radians.</td>
+        </tr>
+
+        <tr>
+            <td><img src="acos.svg" loading="lazy" alt="Acos Of" width="120"></td>
+            <td><code>Math.acos(expr)</code></td>
+            <td class="note">Returns the arc cosine. Result is in radians.</td>
+        </tr>
+
+        <tr>
+            <td><img src="atan.svg" loading="lazy" alt="Atan Of" width="120"></td>
+            <td><code>Math.atan(expr)</code></td>
+            <td class="note">Returns the arc tangent. Result is in radians.</td>
+        </tr>
+
+        <tr>
+            <td><img src="ln.svg" loading="lazy" alt="Natural Logarithm Of" width="120"></td>
+            <td><code>Math.log(expr)</code></td>
+            <td class="note">Returns the natural logarithm (log base <i>e</i>). Not to be confused with <code>Math.log10</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="log10.svg" loading="lazy" alt="Logarithm Of" width="120"></td>
+            <td><code>Math.log10(expr)</code></td>
+            <td class="note">Returns the logarithm base 10.</td>
+        </tr>
+
+        <tr>
+            <td><img src="exp.svg" loading="lazy" alt="e to the Power Of" width="120"></td>
+            <td><code>Math.exp(expr)</code></td>
+            <td class="note">Returns <i>e</i> raised to the given power. The inverse of <code>Math.log</code>.</td>
+        </tr>
+
+        <tr>
+            <td><img src="pow10.svg" loading="lazy" alt="10 to the Power Of" width="120"></td>
+            <td><code>Math.pow(10, expr)</code></td>
+            <td class="note">Returns 10 raised to the given power. The inverse of <code>Math.log10</code>.</td>
+        </tr>
+
+        <!-- Variables -->
+        <tr><td colspan="3"><h2>Variables</h2></td></tr>
+        <tr><td colspan="3"><h4>To create a variable or list, call <code>registerVariable("variableId", variable)</code> on a <code>Sprite</code>/<code>Stage</code> instance. In some cases, you'll want to use plain Java variables instead (e.g., temporary variables, or values that don't belong to a sprite or stage).</h4></td></tr>
+        <tr><td colspan="3"><h4>See the classes in the <code>net.fokinatorr.sparkle.variable</code> package for more details.</h4></td></tr>
+
+        <tr>
+            <td><img src="get_variable.svg" loading="lazy" alt="Get Variable&#39;s Value" width="120"></td>
+            <td><code>target.getVariable("my variable").getValue()</code></td>
+            <td class="note">
+                Gets the current value of a variable.<br>
+                Replace <code>target</code> with your <code>sprite</code> or <code>stage</code> variable. You might want a different method than <code>getValue()</code> for primitive variables (e.g., <code>getDoubleValue()</code>).
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="set_variable.svg" loading="lazy" alt="Set Variable to" width="120"></td>
+            <td><code>target.getVariable("my variable").setValue(expr);</code></td>
+            <td class="note">
+                Sets the variable to a new value. <code>expr</code> must be the same type as the variable (e.g., a number variable needs a number).<br>
+                As above, you might use a different method for primitive types.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="change_variable.svg" loading="lazy" alt="Change Variable by" width="120"></td>
+            <td>
+<pre>Variable&lt;Type&gt; v = target.getVariable("my variable");
+v.setDoubleValue(v.getValueAsDouble() + 1);</pre>
+            </td>
+            <td class="note">
+                Increases the variable by 1 (like Scratch's "change by 1").<br>
+                Replace <code>Type</code> with the variable's actual type (e.g., <code>Double</code>). This only works for numeric variables. Line 1 gets the variable, line 2 reads its current value, adds 1, and writes it back.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="show_variable.svg" loading="lazy" alt="Show Variable" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note" rowspan="2">Showing/hiding variables on screen is planned for a UI extension module — it won't be in the core framework.</td>
+        </tr>
+
+        <tr>
+            <td><img src="hide_variable.svg" loading="lazy" alt="Hide Variable" width="120"></td>
+            <td>No direct equivalent</td>
+        </tr>
+
+        <!-- Lists -->
+        <tr><td colspan="3"><h2>Lists</h2></td></tr>
+        <tr><td colspan="3"><b>Common first step:</b> Get the list object with <code>List&lt;Type&gt; list = target.&lt;List&lt;Type&gt;&gt;getVariable("my list").getValue();</code>, where <code>Type</code> is the type of elements in the list. Then use the methods below.</td></tr>
+
+        <tr>
+            <td><img src="list_add.svg" loading="lazy" alt="Add to" width="120"></td>
+            <td><code>list.add(expr);</code></td>
+            <td class="note">Adds a new item to the end of the list. <code>expr</code> must match the list's element type.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_delete.svg" loading="lazy" alt="Delete 1 of" width="120"></td>
+            <td><code>list.remove(0);</code></td>
+            <td class="note">
+                Removes the item at position 0 (the first item).<br>
+                <b>Important:</b> Java lists start at index 0, not 1 like Scratch. So "item 1" in Scratch is <code>list.get(0)</code> in Java.
+            </td>
+        </tr>
+
+        <tr>
+            <td><img src="list_clear.svg" loading="lazy" alt="Delete All of" width="120"></td>
+            <td><code>list.clear();</code></td>
+            <td class="note">Removes all items from the list.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_insert.svg" loading="lazy" alt="Insert at 1 of" width="120"></td>
+            <td><code>list.add(0, expr);</code></td>
+            <td class="note">Inserts a new item at position 0, pushing everything else to the right.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_replace.svg" loading="lazy" alt="Replace item 1 of List with" width="120"></td>
+            <td><code>list.set(0, expr);</code></td>
+            <td class="note">Replaces the item at position 0 with a new value. The old value is gone.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_get.svg" loading="lazy" alt="Item 1 of" width="120"></td>
+            <td><code>list.get(0)</code></td>
+            <td class="note">Returns the item at position 0 without removing it. This is an expression, not a statement.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_indexof.svg" loading="lazy" alt="Item Number of Expression in" width="120"></td>
+            <td><code>list.indexOf(expr)</code></td>
+            <td class="note">Returns the position of the first matching item, or -1 if not found. Remember: positions start at 0 in Java.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_length.svg" loading="lazy" alt="Length of" width="120"></td>
+            <td><code>list.size()</code></td>
+            <td class="note">Returns how many items are in the list.</td>
+        </tr>
+
+        <tr>
+            <td><img src="list_contains.svg" loading="lazy" alt="List Contains?" width="120"></td>
+            <td><code>list.contains(expr)</code></td>
+            <td class="note">Returns <code>true</code> if the list has an item equal to <code>expr</code>, <code>false</code> otherwise.</td>
+        </tr>
+
+        <tr>
+            <td><img src="show_list.svg" loading="lazy" alt="Show List" width="120"></td>
+            <td>No direct equivalent</td>
+            <td class="note" rowspan="2">Showing/hiding lists on screen is planned for a UI extension module — not in the core framework.</td>
+        </tr>
+
+        <tr>
+            <td><img src="hide_list.svg" loading="lazy" alt="Hide List" width="120"></td>
+            <td>No direct equivalent</td>
+        </tr>
+
+        <!-- My Blocks -->
+        <tr><td colspan="3"><h2>My Blocks</h2></td></tr>
+        <tr><td colspan="3"><h4>Java has a similar feature — methods. You define a method once, then call it from anywhere in your code.</h4></td></tr>
+
+        <tr>
+            <td>Run without screen refresh</td>
+            <td>
+<pre>GraphicsUtils.runWithoutStageRedraw(stage, () -&gt;
+    // your code...
+);</pre>
+            </td>
+            <td class="note">
+                Runs your code without updating the screen while it executes — the screen only updates when the code finishes.<br>
+                In Scratch this is only available for custom blocks, but in Sparkle you can do it anywhere.
+            </td>
+        </tr>
+
+    </tbody>
+</table>    
+</main>
+
+<footer style="text-align: right;">
+    <h4>Blocks rendered with <a href="https://scratchblocks.github.io/"><code>scratchblocks</code></a>, thanks to them!</h4>
+</footer>
+
+
+</body></html>

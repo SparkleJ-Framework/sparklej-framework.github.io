@@ -1,33 +1,128 @@
-<html lang="en">
-    <head>
+<html lang="en"><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home - SparkleJ Framework</title>
         <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <style>
+            body {
+                font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                background-color: #f9f9f9;
+            }
+
+            header {
+                background-color: #4a4a4a;
+                color: white;
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            .header-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .logo-area {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .logo-area img {
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+            }
+
+            .nav-links a {
+                color: #e0e0e0;
+                text-decoration: none;
+                margin-left: 20px;
+                font-weight: 500;
+                transition: color 0.2s;
+            }
+
+            .nav-links a:hover {
+                color: #fff;
+            }
+
+            main.content-wrapper {
+                max-width: 800px;
+                margin: 40px auto;
+                padding: 15px 20px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+                margin-bottom: 0.5rem;
+            }
+
+            h4 {
+                color: #555;
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 2rem;
+            }
+
+            p {
+                line-height: 1.6;
+                margin-bottom: 1.2rem;
+                text-align: justify;
+            }
+
+            ul {
+                margin-bottom: 1.2rem;
+                padding-left: 20px;
+            }
+
+            li {
+                margin-bottom: 0.4rem;
+            }
+
+            a {
+                color: #007bff;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+            }
+
+            a:hover {
+                color: #0056b3;
+            }
+        </style>
     </head>
     <body>
-        <header style="text-align: left; background-color: #676767;">
-            <style>
-                td {
-                    font-size: large;
-                }
-            </style>
-            <table style="border-spacing: 15px 0;"><tr>
-                <td><img src="/favicon.ico" alt="Favicon"/></td>
-                <td><b>SparkleJ Framework</b></td>
-                <td/>
-                <td><a href="/">Home</a></td>
-                <td><a href="https://github.com/SparkleJ-Framework">GitHub</a></td>
-            </tr></table>
+        <header>
+            <div class="header-container">
+                <div class="logo-area">
+                    <img src="/favicon.ico" alt="SparkleJ Logo">
+                    <b>SparkleJ Framework</b>
+                </div>
+                <nav class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="https://github.com/SparkleJ-Framework">GitHub</a>
+                </nav>
+            </div>
         </header>
-        <div>
-            <h1 style="font-size: 300%; text-align: center;">SparkleJ Framework</h1>
-            <h4 style="font-size: 150%; text-align: center;">(code name Sparkle)</h4>
+
+        <main class="content-wrapper">
+            <h1>SparkleJ Framework</h1>
+            <h4>(code name Sparkle)</h4>
+            
             <p>Sparkle is a Java framework for creating graphical applications with a Scratch-like API.</p>
-            <p>
-                Modules:
-                <ul>
-                    <li><a href="/core">Core module</a></li>
-                </ul>
-            </p>
-        </div>
-    </body>
-</html>
+            
+            <p>Modules:</p>
+            <ul>
+                <li><a href="/core">Core module</a></li>
+            </ul>
+        </main>
+    
+
+</body></html>
